@@ -1,3 +1,12 @@
+## 0.1.0
+
+- Added comprehensive dartdoc documentation for all public API elements
+- Created example app at `example/` showcasing every component
+- Replaced deprecated `withOpacity` calls with `withValues(alpha:)`
+- Added `PrismSpacing.px10` constant
+- Fixed all analyzer warnings
+- Added 11 widget tests
+
 ## 0.0.1
 
 Initial release of Prism UI Kit.
