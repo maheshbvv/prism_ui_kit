@@ -1,0 +1,24 @@
+name: prism_ui_kit
+description:
+  "A neo-brutalist design system for Flutter — 20+ components with raw,
+  intentional form. No shadows, no blur, no Material."
+version: 0.0.1
+homepage: https://github.com/maheshbvv/prism_ui_kit
+repository: https://github.com/maheshbvv/prism_ui_kit
+issue_tracker: https://github.com/maheshbvv/prism_ui_kit/issues
+license: MIT
+
+environment:
+  sdk: ^3.11.5
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
