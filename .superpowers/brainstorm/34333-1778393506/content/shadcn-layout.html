@@ -1,0 +1,80 @@
+<h2>Prism UI Kit — Showcase Layout</h2>
+<p class="subtitle">shadcn/ui-inspired structure for prism.pendura.in</p>
+
+<div class="mockup" style="max-width: 900px; margin: 0 auto;">
+  <div class="mockup-header">prism.pendura.in — Component Showcase</div>
+  <div class="mockup-body" style="padding: 0;">
+    <div style="display: flex; min-height: 400px;">
+      <!-- Sidebar -->
+      <div style="width: 200px; background: #1a1a1a; padding: 16px; border-right: 1px solid #333;">
+        <div style="color: #FFB700; font-weight: 700; margin-bottom: 20px; font-size: 14px;">PRISM UI KIT</div>
+        <div style="color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Getting Started</div>
+        <div style="color: #ccc; padding: 6px 8px; border-radius: 4px; font-size: 13px; background: #2a2a2a;">Installation</div>
+        <div style="color: #888; padding: 6px 8px; font-size: 13px;">Theming</div>
+        <div style="margin: 16px 0 8px; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Components</div>
+        <div style="color: #FFB700; padding: 6px 8px; font-size: 13px; background: #2a2a2a; border-left: 2px solid #FFB700;">Button</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Input</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Card</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Badge</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Toggle</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Dialog</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Toast</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">Progress</div>
+        <div style="color: #ccc; padding: 6px 8px; font-size: 13px;">List Tile</div>
+      </div>
+      <!-- Main content -->
+      <div style="flex: 1; padding: 24px; background: #0A0A0A;">
+        <div style="color: #F5F2EB; font-size: 24px; font-weight: 700; margin-bottom: 4px;">Button</div>
+        <div style="color: #888; font-size: 13px; margin-bottom: 24px;">A neo-brutalist button with press-scale animation.</div>
+        
+        <!-- Preview section -->
+        <div style="border: 1px solid #2A2A2A; border-radius: 8px; overflow: hidden; margin-bottom: 24px;">
+          <div style="padding: 8px 16px; border-bottom: 1px solid #2A2A2A; color: #888; font-size: 11px; text-transform: uppercase;">Preview</div>
+          <div style="padding: 32px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <div style="background: #FFB700; color: #0A0A0A; padding: 10px 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">PRIMARY</div>
+            <div style="border: 1px solid #F5F2EB; color: #F5F2EB; padding: 10px 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">GHOST</div>
+            <div style="background: #FF4D38; color: #F5F2EB; padding: 10px 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">DANGER</div>
+            <div style="color: #FFB700; padding: 10px 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px;">FLAT</div>
+          </div>
+        </div>
+        
+        <!-- Code section -->
+        <div style="border: 1px solid #2A2A2A; border-radius: 8px; overflow: hidden; margin-bottom: 24px;">
+          <div style="padding: 8px 16px; border-bottom: 1px solid #2A2A2A; color: #888; font-size: 11px; text-transform: uppercase; display: flex; justify-content: space-between;">
+            <span>Code</span>
+            <span style="color: #FFB700;">Copy</span>
+          </div>
+          <div style="padding: 16px; background: #141414; font-family: monospace; font-size: 12px; color: #A8E63D; line-height: 1.6;">
+            PrismButton(<br/>
+            <span style="color: #888;">&nbsp;&nbsp;label: 'Primary',</span><br/>
+            <span style="color: #888;">&nbsp;&nbsp;variant: PrismVariant.primary,</span><br/>
+            <span style="color: #888;">&nbsp;&nbsp;onPressed: () {},</span><br/>
+            )
+          </div>
+        </div>
+        
+        <!-- Props table -->
+        <div style="border: 1px solid #2A2A2A; border-radius: 8px; overflow: hidden;">
+          <div style="padding: 8px 16px; border-bottom: 1px solid #2A2A2A; color: #888; font-size: 11px; text-transform: uppercase;">Props</div>
+          <div style="padding: 0;">
+            <div style="display: grid; grid-template-columns: 120px 80px 1fr; border-bottom: 1px solid #1a1a1a; padding: 8px 16px; font-size: 12px;">
+              <span style="color: #FFB700;">label</span>
+              <span style="color: #3D8EFF;">String</span>
+              <span style="color: #888;">Button text (auto-uppercased)</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 120px 80px 1fr; border-bottom: 1px solid #1a1a1a; padding: 8px 16px; font-size: 12px;">
+              <span style="color: #FFB700;">variant</span>
+              <span style="color: #3D8EFF;">PrismVariant</span>
+              <span style="color: #888;">primary, ghost, danger, flat</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 120px 80px 1fr; padding: 8px 16px; font-size: 12px;">
+              <span style="color: #FFB700;">onPressed</span>
+              <span style="color: #3D8EFF;">VoidCallback?</span>
+              <span style="color: #888;">Callback when tapped</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
