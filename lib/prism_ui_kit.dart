@@ -1,7 +1,17 @@
-// ============================================================
-// PRISM UI KIT — by Pendura
-// Neo-brutalist editorial design system for Flutter
-// ============================================================
+/// Prism UI Kit — a neo-brutalist design system for Flutter.
+///
+/// 20+ components built with structural honesty — no shadows, no blur,
+/// no Material, no Cupertino. Just raw, intentional form.
+///
+/// ## Quick start
+///
+/// ```dart
+/// MaterialApp(
+///   theme: PrismTheme.dark,
+///   home: MyScreen(),
+/// )
+/// ```
+library;
 
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -11,47 +21,90 @@ import 'package:flutter/services.dart';
 // 1. PRISM THEME — Design Tokens
 // ─────────────────────────────────────────────────────────────
 
+/// Design tokens — the Prism color palette.
+///
+/// Includes base colors (ink, chalk), accents (amber, lime, coral, sky),
+/// semantic aliases (success, error, warning, info), surface layers for
+/// dark mode, and border colors.
 class PrismColors {
   PrismColors._();
 
-  // Base
+  /// Near-black base — use for backgrounds or primary text on light.
   static const ink = Color(0xFF0A0A0A);
+
+  /// Warm off-white — use for text on dark backgrounds.
   static const chalk = Color(0xFFF5F2EB);
+
+  /// Slightly darker chalk — use for subtle surfaces in light mode.
   static const chalkDim = Color(0xFFE8E4DA);
+
+  /// Darker still — border-level light surface.
   static const chalkDimmer = Color(0xFFD4CFC3);
 
-  // Accents
+  /// Primary accent — bold yellow-gold.
   static const amber = Color(0xFFFFB700);
+
+  /// Lighter amber variant.
   static const amberDim = Color(0xFFFFC933);
+
+  /// Accent green — also used for success states.
   static const lime = Color(0xFFA8E63D);
+
+  /// Accent red — also used for error / destructive states.
   static const coral = Color(0xFFFF4D38);
+
+  /// Accent blue — also used for info states.
   static const sky = Color(0xFF3D8EFF);
 
-  // Semantic
+  /// Semantic alias for [lime].
   static const success = lime;
+
+  /// Semantic alias for [coral].
   static const error = coral;
+
+  /// Semantic alias for [amber].
   static const warning = amber;
+
+  /// Semantic alias for [sky].
   static const info = sky;
 
-  // Surface layers (dark mode)
+  /// Deepest dark-mode surface layer.
   static const surface0 = Color(0xFF0A0A0A);
+
+  /// Primary dark-mode surface.
   static const surface1 = Color(0xFF141414);
+
+  /// Raised dark-mode surface.
   static const surface2 = Color(0xFF1E1E1E);
+
+  /// Highest dark-mode surface.
   static const surface3 = Color(0xFF282828);
 
-  // Border
+  /// Default border color (dark mode).
   static const border = Color(0xFF2A2A2A);
+
+  /// Default border color (light mode).
   static const borderLight = Color(0xFFE0DBD0);
 }
 
+/// Typography scale — editorial, high-contrast, all-caps labels.
+///
+/// Font families default to `serif`, `sans-serif`, and `monospace` so the
+/// package has zero font dependencies. Replace them by wrapping text in
+/// your own `TextStyle` with a custom `fontFamily`.
 class PrismTypography {
   PrismTypography._();
 
-  // Display — "DM Serif Display" feel via serif weight contrast
+  /// Serif font family string.
   static const fontDisplay = 'serif';
+
+  /// Monospace font family string.
   static const fontMono = 'monospace';
+
+  /// Sans-serif font family string.
   static const fontSans = 'sans-serif';
 
+  /// 64px / W900 — extreme hero text.
   static const TextStyle displayXL = TextStyle(
     fontSize: 64,
     fontWeight: FontWeight.w900,
@@ -60,6 +113,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 48px / W900 — large display heading.
   static const TextStyle displayL = TextStyle(
     fontSize: 48,
     fontWeight: FontWeight.w900,
@@ -68,6 +122,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 36px / W800 — medium display heading.
   static const TextStyle displayM = TextStyle(
     fontSize: 36,
     fontWeight: FontWeight.w800,
@@ -76,6 +131,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 24px / W700 — large section heading.
   static const TextStyle headingL = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
@@ -84,6 +140,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 18px / W700 — medium heading, card titles.
   static const TextStyle headingM = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w700,
@@ -92,6 +149,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 14px / W700 — small heading, button text.
   static const TextStyle headingS = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
@@ -100,6 +158,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 16px / W400 — large body text.
   static const TextStyle bodyL = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
@@ -108,6 +167,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 14px / W400 — default body text.
   static const TextStyle bodyM = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
@@ -116,6 +176,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 12px / W400 — small body / captions.
   static const TextStyle bodyS = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -124,6 +185,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 11px / W700 + 1.5sp — uppercase label text.
   static const TextStyle label = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w700,
@@ -132,6 +194,7 @@ class PrismTypography {
     color: PrismColors.chalk,
   );
 
+  /// 13px / W500 — monospace for code / numbers.
   static const TextStyle mono = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w500,
@@ -142,28 +205,59 @@ class PrismTypography {
   );
 }
 
+/// Consistent spacing values used throughout Prism components.
+///
+/// Values range from 2px to 64px, following powers-of-two increments.
 class PrismSpacing {
   PrismSpacing._();
 
+  /// 2px.
   static const double px2 = 2;
+
+  /// 4px.
   static const double px4 = 4;
+
+  /// 6px.
   static const double px6 = 6;
+
+  /// 8px.
   static const double px8 = 8;
+
+  /// 10px.
   static const double px10 = 10;
+
+  /// 12px.
   static const double px12 = 12;
+
+  /// 16px.
   static const double px16 = 16;
+
+  /// 20px.
   static const double px20 = 20;
+
+  /// 24px.
   static const double px24 = 24;
+
+  /// 32px.
   static const double px32 = 32;
+
+  /// 40px.
   static const double px40 = 40;
+
+  /// 48px.
   static const double px48 = 48;
+
+  /// 64px.
   static const double px64 = 64;
 }
 
-/// The ThemeData you can pass to MaterialApp.theme to baseline everything.
+/// ThemeData factories for Prism dark and light modes.
+///
+/// Apply via `MaterialApp(theme: PrismTheme.dark)`.
 class PrismTheme {
   PrismTheme._();
 
+  /// Dark theme — ink background, chalk text, amber accents.
   static ThemeData get dark => ThemeData(
         useMaterial3: false,
         scaffoldBackgroundColor: PrismColors.ink,
@@ -179,6 +273,7 @@ class PrismTheme {
         fontFamily: 'sans-serif',
       );
 
+  /// Light theme — chalk background, ink text, amber accents.
   static ThemeData get light => ThemeData(
         useMaterial3: false,
         scaffoldBackgroundColor: PrismColors.chalk,
@@ -199,14 +294,44 @@ class PrismTheme {
 // HELPERS
 // ─────────────────────────────────────────────────────────────
 
-enum PrismVariant { primary, ghost, danger, flat }
-enum PrismSize { sm, md, lg }
+/// Visual variants for [PrismButton].
+enum PrismVariant {
+  /// Solid amber background, ink text.
+  primary,
+
+  /// Transparent background, chalk border + text.
+  ghost,
+
+  /// Solid coral background, chalk text.
+  danger,
+
+  /// Transparent background, amber text only — no border.
+  flat,
+}
+
+/// Size options for [PrismButton].
+enum PrismSize {
+  /// 32px height, label-style text.
+  sm,
+
+  /// 44px height, heading-s text.
+  md,
+
+  /// 56px height, bold body text.
+  lg,
+}
 
 // ─────────────────────────────────────────────────────────────
 // 2. PRISM BUTTON
 // ─────────────────────────────────────────────────────────────
 
+/// A neo-brutalist button with press-scale animation.
+///
+/// Supports four variants ([primary], [ghost], [danger], [flat]),
+/// three sizes ([sm], [md], [lg]), loading state, optional leading /
+/// trailing icons, and full-width mode.
 class PrismButton extends StatefulWidget {
+  /// Creates a [PrismButton].
   const PrismButton({
     super.key,
     required this.label,
@@ -219,13 +344,29 @@ class PrismButton extends StatefulWidget {
     this.isFullWidth = false,
   });
 
+  /// Button text (auto-uppercased).
   final String label;
+
+  /// Called when the button is tapped. When `null` the button is disabled.
   final VoidCallback? onPressed;
+
+  /// Visual variant. Defaults to [PrismVariant.primary].
   final PrismVariant variant;
+
+  /// Size preset. Defaults to [PrismSize.md].
   final PrismSize size;
+
+  /// Optional widget shown before the label (replaced by spinner when
+  /// [isLoading] is true).
   final Widget? leading;
+
+  /// Optional widget shown after the label.
   final Widget? trailing;
+
+  /// When `true` shows a spinner in place of [leading].
   final bool isLoading;
+
+  /// When `true` expands the button to fill its parent width.
   final bool isFullWidth;
 
   @override
@@ -263,7 +404,9 @@ class _PrismButtonState extends State<PrismButton>
   Widget build(BuildContext context) {
     final disabled = widget.onPressed == null || widget.isLoading;
 
-    final Color bg; final Color fg; final Color border;
+    final Color bg;
+    final Color fg;
+    final Color border;
     (bg, fg, border) = switch (widget.variant) {
       PrismVariant.primary => (
           disabled ? PrismColors.surface3 : PrismColors.amber,
@@ -287,21 +430,26 @@ class _PrismButtonState extends State<PrismButton>
         ),
     };
 
-    final double h; final double hPad; final TextStyle textStyle;
+    final double h;
+    final double hPad;
+    final TextStyle textStyle;
     (h, hPad, textStyle) = switch (widget.size) {
       PrismSize.sm => (32.0, 14.0, PrismTypography.label),
       PrismSize.md => (44.0, 20.0, PrismTypography.headingS),
-      PrismSize.lg => (56.0, 28.0, PrismTypography.bodyL.copyWith(fontWeight: FontWeight.w700)),
+      PrismSize.lg =>
+        (56.0, 28.0, PrismTypography.bodyL.copyWith(fontWeight: FontWeight.w700)),
     };
 
     return GestureDetector(
       onTapDown: disabled ? null : _onTapDown,
       onTapUp: disabled ? null : _onTapUp,
       onTapCancel: disabled ? null : _onTapCancel,
-      onTap: disabled ? null : () {
-        HapticFeedback.lightImpact();
-        widget.onPressed!();
-      },
+      onTap: disabled
+          ? null
+          : () {
+              HapticFeedback.lightImpact();
+              widget.onPressed!();
+            },
       child: ScaleTransition(
         scale: _press,
         child: SizedBox(
@@ -420,7 +568,13 @@ class _SpinnerPainter extends CustomPainter {
 // 3. PRISM INPUT
 // ─────────────────────────────────────────────────────────────
 
+/// A neo-brutalist text field with animated border, label, error, and icons.
+///
+/// The border animates to [PrismColors.amber] on focus and [PrismColors.coral]
+/// when [error] is set. Supports prefix / suffix icons, helper text, and
+/// obscure text for passwords.
 class PrismInput extends StatefulWidget {
+  /// Creates a [PrismInput].
   const PrismInput({
     super.key,
     this.label,
@@ -438,18 +592,44 @@ class PrismInput extends StatefulWidget {
     this.autofocus = false,
   });
 
+  /// Label shown above the input (auto-uppercased). Turns amber on focus,
+  /// coral when [error] is set.
   final String? label;
+
+  /// Placeholder text inside the field.
   final String? hint;
+
+  /// Helper text shown below the input when there is no [error].
   final String? helper;
+
+  /// Error message shown below the input. Turns the label and border coral.
   final String? error;
+
+  /// Optional controller for programmatic access.
   final TextEditingController? controller;
+
+  /// When `true` hides the typed characters.
   final bool obscureText;
+
+  /// Keyboard type for the underlying [TextField].
   final TextInputType? keyboardType;
+
+  /// Called on every keystroke.
   final ValueChanged<String>? onChanged;
+
+  /// Called when the user presses submit / done.
   final ValueChanged<String>? onSubmitted;
+
+  /// Widget shown at the start of the input (e.g. an icon).
   final Widget? prefix;
+
+  /// Widget shown at the end of the input (e.g. an icon).
   final Widget? suffix;
+
+  /// Maximum visible lines. `null` means single-line.
   final int? maxLines;
+
+  /// When `true` autofocuses the field on mount.
   final bool autofocus;
 
   @override
@@ -569,7 +749,8 @@ class _PrismInputState extends State<PrismInput>
                     const BoxConstraints(minWidth: 0, minHeight: 0),
                 suffixIcon: widget.suffix != null
                     ? Padding(
-                        padding: const EdgeInsets.only(right: PrismSpacing.px12),
+                        padding:
+                            const EdgeInsets.only(right: PrismSpacing.px12),
                         child: IconTheme(
                           data: IconThemeData(
                             color: PrismColors.chalk.withValues(alpha: 0.4),
@@ -597,8 +778,7 @@ class _PrismInputState extends State<PrismInput>
               const SizedBox(width: 6),
               Text(
                 widget.error!,
-                style:
-                    PrismTypography.bodyS.copyWith(color: PrismColors.coral),
+                style: PrismTypography.bodyS.copyWith(color: PrismColors.coral),
               ),
             ],
           ),
@@ -619,7 +799,12 @@ class _PrismInputState extends State<PrismInput>
 // 4. PRISM CARD
 // ─────────────────────────────────────────────────────────────
 
+/// A content card with an exposed accent left border and optional header.
+///
+/// The card's grid anatomy is visible through its border structure:
+/// a 3px accent line on the left and 1px structural borders elsewhere.
 class PrismCard extends StatelessWidget {
+  /// Creates a [PrismCard].
   const PrismCard({
     super.key,
     required this.child,
@@ -629,10 +814,19 @@ class PrismCard extends StatelessWidget {
     this.padding,
   });
 
+  /// The widget inside the card body.
   final Widget child;
+
+  /// Color for the left accent border. Defaults to [PrismColors.amber].
   final Color? accent;
+
+  /// Optional header text (auto-uppercased) shown above the body.
   final String? label;
+
+  /// Called when the card is tapped.
   final VoidCallback? onTap;
+
+  /// Padding around [child]. Defaults to 20px all sides.
   final EdgeInsetsGeometry? padding;
 
   @override
@@ -664,8 +858,8 @@ class PrismCard extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   border: Border(
-                    bottom:
-                        BorderSide(color: accentColor.withValues(alpha: 0.3), width: 1),
+                    bottom: BorderSide(
+                        color: accentColor.withValues(alpha: 0.3), width: 1),
                   ),
                 ),
                 child: Text(
@@ -674,8 +868,7 @@ class PrismCard extends StatelessWidget {
                 ),
               ),
             Padding(
-              padding: padding ??
-                  const EdgeInsets.all(PrismSpacing.px20),
+              padding: padding ?? const EdgeInsets.all(PrismSpacing.px20),
               child: child,
             ),
           ],
@@ -689,9 +882,32 @@ class PrismCard extends StatelessWidget {
 // 5. PRISM BADGE
 // ─────────────────────────────────────────────────────────────
 
-enum PrismBadgeVariant { success, error, warning, info, neutral, accent }
+/// Variants for [PrismBadge].
+enum PrismBadgeVariant {
+  /// Green badge — good status.
+  success,
 
+  /// Red badge — error status.
+  error,
+
+  /// Amber badge — warning status.
+  warning,
+
+  /// Blue badge — informational.
+  info,
+
+  /// Grey badge — no semantic weight.
+  neutral,
+
+  /// Solid amber badge — calls attention.
+  accent,
+}
+
+/// A status badge with optional dot indicator.
+///
+/// Compact, uppercased, and available in six semantic variants.
 class PrismBadge extends StatelessWidget {
+  /// Creates a [PrismBadge].
   const PrismBadge({
     super.key,
     required this.label,
@@ -699,18 +915,28 @@ class PrismBadge extends StatelessWidget {
     this.dot = false,
   });
 
+  /// Badge text (auto-uppercased).
   final String label;
+
+  /// Color variant. Defaults to [PrismBadgeVariant.neutral].
   final PrismBadgeVariant variant;
+
+  /// When `true` shows a small dot before the label.
   final bool dot;
 
   @override
   Widget build(BuildContext context) {
     final (bg, fg) = switch (variant) {
-      PrismBadgeVariant.success => (PrismColors.lime.withValues(alpha: 0.15), PrismColors.lime),
-      PrismBadgeVariant.error => (PrismColors.coral.withValues(alpha: 0.15), PrismColors.coral),
-      PrismBadgeVariant.warning => (PrismColors.amber.withValues(alpha: 0.15), PrismColors.amber),
-      PrismBadgeVariant.info => (PrismColors.sky.withValues(alpha: 0.15), PrismColors.sky),
-      PrismBadgeVariant.neutral => (PrismColors.surface2, PrismColors.chalk.withValues(alpha: 0.6)),
+      PrismBadgeVariant.success =>
+        (PrismColors.lime.withValues(alpha: 0.15), PrismColors.lime),
+      PrismBadgeVariant.error =>
+        (PrismColors.coral.withValues(alpha: 0.15), PrismColors.coral),
+      PrismBadgeVariant.warning =>
+        (PrismColors.amber.withValues(alpha: 0.15), PrismColors.amber),
+      PrismBadgeVariant.info =>
+        (PrismColors.sky.withValues(alpha: 0.15), PrismColors.sky),
+      PrismBadgeVariant.neutral =>
+        (PrismColors.surface2, PrismColors.chalk.withValues(alpha: 0.6)),
       PrismBadgeVariant.accent => (PrismColors.amber, PrismColors.ink),
     };
 
@@ -747,10 +973,17 @@ class PrismBadge extends StatelessWidget {
 // 6. PRISM TAG
 // ─────────────────────────────────────────────────────────────
 
+/// An inline content tag with optional remove action.
+///
+/// Rendered in monospace with a transparent background and border.
 class PrismTag extends StatelessWidget {
+  /// Creates a [PrismTag].
   const PrismTag({super.key, required this.label, this.onRemove});
 
+  /// Tag text.
   final String label;
+
+  /// Called when the close icon is tapped. When `null` no close icon is shown.
   final VoidCallback? onRemove;
 
   @override
@@ -795,7 +1028,9 @@ class PrismTag extends StatelessWidget {
 // 7. PRISM CHIP — Selectable filter chip
 // ─────────────────────────────────────────────────────────────
 
+/// A selectable filter chip with animated background and optional icon.
 class PrismChip extends StatelessWidget {
+  /// Creates a [PrismChip].
   const PrismChip({
     super.key,
     required this.label,
@@ -804,9 +1039,16 @@ class PrismChip extends StatelessWidget {
     this.icon,
   });
 
+  /// Chip label.
   final String label;
+
+  /// Whether the chip is currently selected.
   final bool selected;
+
+  /// Called when the chip is tapped.
   final VoidCallback onToggle;
+
+  /// Optional icon shown before the label.
   final IconData? icon;
 
   @override
@@ -836,14 +1078,18 @@ class PrismChip extends StatelessWidget {
               Icon(
                 icon,
                 size: 14,
-                color: selected ? PrismColors.ink : PrismColors.chalk.withValues(alpha: 0.5),
+                color: selected
+                    ? PrismColors.ink
+                    : PrismColors.chalk.withValues(alpha: 0.5),
               ),
               const SizedBox(width: 6),
             ],
             Text(
               label,
               style: PrismTypography.headingS.copyWith(
-                color: selected ? PrismColors.ink : PrismColors.chalk.withValues(alpha: 0.6),
+                color: selected
+                    ? PrismColors.ink
+                    : PrismColors.chalk.withValues(alpha: 0.6),
                 letterSpacing: 0.3,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
               ),
@@ -859,7 +1105,9 @@ class PrismChip extends StatelessWidget {
 // 8. PRISM TOGGLE
 // ─────────────────────────────────────────────────────────────
 
+/// An on/off toggle switch with optional label and description.
 class PrismToggle extends StatelessWidget {
+  /// Creates a [PrismToggle].
   const PrismToggle({
     super.key,
     required this.value,
@@ -868,9 +1116,16 @@ class PrismToggle extends StatelessWidget {
     this.description,
   });
 
+  /// Current toggle state.
   final bool value;
+
+  /// Called with the new value when the toggle is tapped.
   final ValueChanged<bool> onChanged;
+
+  /// Label text shown to the right of the toggle.
   final String? label;
+
+  /// Description text shown below [label].
   final String? description;
 
   @override
@@ -882,7 +1137,6 @@ class PrismToggle extends StatelessWidget {
       },
       child: Row(
         children: [
-          // Toggle track
           AnimatedContainer(
             duration: const Duration(milliseconds: 150),
             width: 44,
@@ -897,12 +1151,15 @@ class PrismToggle extends StatelessWidget {
             child: AnimatedAlign(
               duration: const Duration(milliseconds: 150),
               curve: Curves.easeOut,
-              alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+              alignment:
+                  value ? Alignment.centerRight : Alignment.centerLeft,
               child: Container(
                 width: 16,
                 height: 16,
                 margin: const EdgeInsets.symmetric(horizontal: 3),
-                color: value ? PrismColors.ink : PrismColors.chalk.withValues(alpha: 0.3),
+                color: value
+                    ? PrismColors.ink
+                    : PrismColors.chalk.withValues(alpha: 0.3),
               ),
             ),
           ),
@@ -913,9 +1170,8 @@ class PrismToggle extends StatelessWidget {
               children: [
                 Text(
                   label!,
-                  style: PrismTypography.bodyM.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style:
+                      PrismTypography.bodyM.copyWith(fontWeight: FontWeight.w600),
                 ),
                 if (description != null)
                   Text(
@@ -937,7 +1193,9 @@ class PrismToggle extends StatelessWidget {
 // 9. PRISM CHECKBOX
 // ─────────────────────────────────────────────────────────────
 
+/// A custom checkbox with check and indeterminate states.
 class PrismCheckbox extends StatelessWidget {
+  /// Creates a [PrismCheckbox].
   const PrismCheckbox({
     super.key,
     required this.value,
@@ -946,9 +1204,16 @@ class PrismCheckbox extends StatelessWidget {
     this.indeterminate = false,
   });
 
+  /// Current checked state.
   final bool value;
+
+  /// Called with the new value when tapped.
   final ValueChanged<bool> onChanged;
+
+  /// Label text shown to the right.
   final String? label;
+
+  /// When `true` shows a dash instead of a checkmark.
   final bool indeterminate;
 
   @override
@@ -1009,14 +1274,31 @@ class PrismCheckbox extends StatelessWidget {
 // 10. PRISM RADIO GROUP
 // ─────────────────────────────────────────────────────────────
 
+/// A single option within a [PrismRadioGroup].
 class PrismRadioOption<T> {
-  const PrismRadioOption({required this.value, required this.label, this.description});
+  /// Creates a [PrismRadioOption].
+  const PrismRadioOption({
+    required this.value,
+    required this.label,
+    this.description,
+  });
+
+  /// The value returned when this option is selected.
   final T value;
+
+  /// Display label.
   final String label;
+
+  /// Optional description shown below the label.
   final String? description;
 }
 
+/// A radio group rendered as selectable cards.
+///
+/// Each option is a bordered card with a circular radio indicator,
+/// making it suitable for form selection where visual weight is desired.
 class PrismRadioGroup<T> extends StatelessWidget {
+  /// Creates a [PrismRadioGroup].
   const PrismRadioGroup({
     super.key,
     required this.options,
@@ -1024,8 +1306,13 @@ class PrismRadioGroup<T> extends StatelessWidget {
     required this.onChanged,
   });
 
+  /// The available options.
   final List<PrismRadioOption<T>> options;
+
+  /// Currently selected value.
   final T value;
+
+  /// Called when a new option is selected.
   final ValueChanged<T> onChanged;
 
   @override
@@ -1042,7 +1329,9 @@ class PrismRadioGroup<T> extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: PrismSpacing.px8),
             padding: const EdgeInsets.all(PrismSpacing.px16),
             decoration: BoxDecoration(
-              color: selected ? PrismColors.amber.withValues(alpha: 0.07) : PrismColors.surface1,
+              color: selected
+                  ? PrismColors.amber.withValues(alpha: 0.07)
+                  : PrismColors.surface1,
               border: Border.all(
                 color: selected ? PrismColors.amber : PrismColors.border,
                 width: selected ? 1.5 : 1,
@@ -1082,7 +1371,9 @@ class PrismRadioGroup<T> extends StatelessWidget {
                         opt.label,
                         style: PrismTypography.bodyM.copyWith(
                           fontWeight: FontWeight.w600,
-                          color: selected ? PrismColors.amber : PrismColors.chalk,
+                          color: selected
+                              ? PrismColors.amber
+                              : PrismColors.chalk,
                         ),
                       ),
                       if (opt.description != null)
@@ -1108,7 +1399,9 @@ class PrismRadioGroup<T> extends StatelessWidget {
 // 11. PRISM SLIDER
 // ─────────────────────────────────────────────────────────────
 
+/// A range input with a square thumb, optional label, and segmented mode.
 class PrismSlider extends StatelessWidget {
+  /// Creates a [PrismSlider].
   const PrismSlider({
     super.key,
     required this.value,
@@ -1121,13 +1414,28 @@ class PrismSlider extends StatelessWidget {
     this.accentColor = PrismColors.amber,
   });
 
+  /// Current slider value.
   final double value;
+
+  /// Called while the user drags the thumb.
   final ValueChanged<double> onChanged;
+
+  /// Minimum value. Defaults to 0.0.
   final double min;
+
+  /// Maximum value. Defaults to 1.0.
   final double max;
+
+  /// Label shown above the track (auto-uppercased).
   final String? label;
+
+  /// When `true` shows the numeric value next to the label.
   final bool showValue;
+
+  /// Number of discrete divisions. `null` for continuous.
   final int? divisions;
+
+  /// Color for the active track, thumb, and value text.
   final Color accentColor;
 
   @override
@@ -1153,7 +1461,8 @@ class PrismSlider extends StatelessWidget {
                 ),
             ],
           ),
-        if (label != null || showValue) const SizedBox(height: PrismSpacing.px8),
+        if (label != null || showValue)
+          const SizedBox(height: PrismSpacing.px8),
         SliderTheme(
           data: SliderThemeData(
             trackHeight: 2,
@@ -1204,7 +1513,8 @@ class _SquareThumbShape extends SliderComponentShape {
   final Color color;
 
   @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) => const Size(16, 16);
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) =>
+      const Size(16, 16);
 
   @override
   void paint(
@@ -1240,7 +1550,9 @@ class _SquareThumbShape extends SliderComponentShape {
 // 12. PRISM DIVIDER
 // ─────────────────────────────────────────────────────────────
 
+/// A structural divider with optional label, accent, and vertical mode.
 class PrismDivider extends StatelessWidget {
+  /// Creates a [PrismDivider].
   const PrismDivider({
     super.key,
     this.label,
@@ -1249,9 +1561,17 @@ class PrismDivider extends StatelessWidget {
     this.height,
   });
 
+  /// Optional label rendered between two horizontal lines (ignored in
+  /// [vertical] mode).
   final String? label;
+
+  /// When `true` uses [PrismColors.amber] instead of the default border color.
   final bool accent;
+
+  /// When `true` renders as a 1px-wide vertical line.
   final bool vertical;
+
+  /// Height of a vertical divider. Defaults to fill parent.
   final double? height;
 
   @override
@@ -1280,11 +1600,14 @@ class PrismDivider extends StatelessWidget {
         children: [
           Expanded(child: Container(height: 1, color: color)),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: PrismSpacing.px12),
+            padding:
+                const EdgeInsets.symmetric(horizontal: PrismSpacing.px12),
             child: Text(
               label!.toUpperCase(),
               style: PrismTypography.label.copyWith(
-                color: accent ? PrismColors.amber : PrismColors.chalk.withValues(alpha: 0.35),
+                color: accent
+                    ? PrismColors.amber
+                    : PrismColors.chalk.withValues(alpha: 0.35),
                 fontSize: 10,
               ),
             ),
@@ -1300,7 +1623,11 @@ class PrismDivider extends StatelessWidget {
 // 13. PRISM DIALOG
 // ─────────────────────────────────────────────────────────────
 
+/// A modal dialog with accent header, body, and action buttons.
+///
+/// Use [PrismDialog.show] to display it.
 class PrismDialog extends StatelessWidget {
+  /// Creates a [PrismDialog].
   const PrismDialog({
     super.key,
     required this.title,
@@ -1313,15 +1640,34 @@ class PrismDialog extends StatelessWidget {
     this.isDestructive = false,
   });
 
+  /// Dialog title shown in the header.
   final String title;
+
+  /// Widget rendered in the body area.
   final Widget body;
+
+  /// Label for the primary action button.
   final String primaryLabel;
+
+  /// Label for the secondary (ghost) action button.
   final String secondaryLabel;
+
+  /// Called when the primary button is tapped.
   final VoidCallback? onPrimary;
+
+  /// Called when the secondary button is tapped.
   final VoidCallback? onSecondary;
+
+  /// Accent color for the header left border. Defaults to amber.
   final Color accentColor;
+
+  /// When `true` the primary button uses the danger variant and the accent
+  /// turns coral.
   final bool isDestructive;
 
+  /// Shows the dialog via [showGeneralDialog].
+  ///
+  /// Returns `null` when dismissed.
   static Future<void> show(
     BuildContext context, {
     required String title,
@@ -1356,7 +1702,8 @@ class PrismDialog extends StatelessWidget {
           primaryLabel: primaryLabel,
           secondaryLabel: secondaryLabel,
           onPrimary: onPrimary,
-          onSecondary: onSecondary ?? () => Navigator.of(context).pop(),
+          onSecondary:
+              onSecondary ?? () => Navigator.of(context).pop(),
           isDestructive: isDestructive,
         ),
       ),
@@ -1380,7 +1727,6 @@ class PrismDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(PrismSpacing.px20),
@@ -1395,7 +1741,6 @@ class PrismDialog extends StatelessWidget {
                 style: PrismTypography.headingM,
               ),
             ),
-            // Body
             Padding(
               padding: const EdgeInsets.all(PrismSpacing.px20),
               child: DefaultTextStyle(
@@ -1404,7 +1749,6 @@ class PrismDialog extends StatelessWidget {
                 child: body,
               ),
             ),
-            // Actions
             Container(
               padding: const EdgeInsets.all(PrismSpacing.px16),
               decoration: const BoxDecoration(
@@ -1444,9 +1788,28 @@ class PrismDialog extends StatelessWidget {
 // 14. PRISM TOAST
 // ─────────────────────────────────────────────────────────────
 
-enum PrismToastVariant { info, success, warning, error }
+/// Variants for [PrismToast].
+enum PrismToastVariant {
+  /// Blue toast.
+  info,
 
+  /// Green toast.
+  success,
+
+  /// Amber toast.
+  warning,
+
+  /// Red toast.
+  error,
+}
+
+/// An overlay notification with slide-up animation and auto-dismiss.
+///
+/// Use [PrismToast.show] to display it.
 class PrismToast {
+  /// Shows a toast notification anchored to the bottom of the screen.
+  ///
+  /// Automatically dismisses after [duration].
   static void show(
     BuildContext context, {
     required String message,
@@ -1581,16 +1944,24 @@ class _PrismToastWidgetState extends State<_PrismToastWidget>
 // 15. PRISM BOTTOM SHEET
 // ─────────────────────────────────────────────────────────────
 
+/// A modal bottom sheet with title and tappable action children.
+///
+/// Use [PrismBottomSheet.show] to display it.
 class PrismBottomSheet extends StatelessWidget {
+  /// Creates a [PrismBottomSheet].
   const PrismBottomSheet({
     super.key,
     required this.title,
     required this.children,
   });
 
+  /// Sheet title shown in the header.
   final String title;
+
+  /// Action widgets (typically [PrismBottomSheetAction] instances).
   final List<Widget> children;
 
+  /// Shows the sheet via [showModalBottomSheet].
   static Future<T?> show<T>(
     BuildContext context, {
     required String title,
@@ -1651,7 +2022,9 @@ class PrismBottomSheet extends StatelessWidget {
   }
 }
 
+/// A single action row within [PrismBottomSheet].
 class PrismBottomSheetAction extends StatelessWidget {
+  /// Creates a [PrismBottomSheetAction].
   const PrismBottomSheetAction({
     super.key,
     required this.label,
@@ -1660,9 +2033,16 @@ class PrismBottomSheetAction extends StatelessWidget {
     this.isDestructive = false,
   });
 
+  /// Action label.
   final String label;
+
+  /// Called when the row is tapped.
   final VoidCallback onTap;
+
+  /// Optional icon shown before the label.
   final IconData? icon;
+
+  /// When `true` the text and icon render in [PrismColors.coral].
   final bool isDestructive;
 
   @override
@@ -1705,19 +2085,28 @@ class PrismBottomSheetAction extends StatelessWidget {
 // 16. PRISM NAV BAR
 // ─────────────────────────────────────────────────────────────
 
+/// A single tab item within [PrismNavBar].
 class PrismNavBarItem {
+  /// Creates a [PrismNavBarItem].
   const PrismNavBarItem({
     required this.icon,
     required this.selectedIcon,
     required this.label,
   });
 
+  /// Icon shown when this item is not selected.
   final IconData icon;
+
+  /// Icon shown when this item is selected.
   final IconData selectedIcon;
+
+  /// Label shown below the icon (auto-uppercased).
   final String label;
 }
 
+/// A bottom navigation bar with animated selection highlighting.
 class PrismNavBar extends StatelessWidget {
+  /// Creates a [PrismNavBar].
   const PrismNavBar({
     super.key,
     required this.items,
@@ -1725,8 +2114,13 @@ class PrismNavBar extends StatelessWidget {
     required this.onTap,
   });
 
+  /// Tab items. Typically 3–5 items.
   final List<PrismNavBarItem> items;
+
+  /// Index of the currently selected tab.
   final int currentIndex;
+
+  /// Called with the tapped index.
   final ValueChanged<int> onTap;
 
   @override
@@ -1803,7 +2197,9 @@ class PrismNavBar extends StatelessWidget {
 // 17. PRISM APP BAR
 // ─────────────────────────────────────────────────────────────
 
+/// A top app bar with accent line, optional subtitle, and action slots.
 class PrismAppBar extends StatelessWidget implements PreferredSizeWidget {
+  /// Creates a [PrismAppBar].
   const PrismAppBar({
     super.key,
     required this.title,
@@ -1813,10 +2209,19 @@ class PrismAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.accentLine = true,
   });
 
+  /// Title text.
   final String title;
+
+  /// Optional subtitle shown below the title.
   final String? subtitle;
+
+  /// Widget shown at the leading edge (e.g. a back button).
   final Widget? leading;
+
+  /// Widgets shown at the trailing edge.
   final List<Widget> actions;
+
+  /// When `true` shows a 2px amber bottom border instead of 1px grey.
   final bool accentLine;
 
   @override
@@ -1872,9 +2277,24 @@ class PrismAppBar extends StatelessWidget implements PreferredSizeWidget {
 // 18. PRISM AVATAR
 // ─────────────────────────────────────────────────────────────
 
-enum PrismPresence { online, away, busy, offline }
+/// Presence indicator options for [PrismAvatar].
+enum PrismPresence {
+  /// Green dot.
+  online,
 
+  /// Amber dot.
+  away,
+
+  /// Red dot.
+  busy,
+
+  /// Grey dot.
+  offline,
+}
+
+/// A user avatar with optional image, initials fallback, and presence dot.
 class PrismAvatar extends StatelessWidget {
+  /// Creates a [PrismAvatar].
   const PrismAvatar({
     super.key,
     this.imageUrl,
@@ -1884,10 +2304,19 @@ class PrismAvatar extends StatelessWidget {
     this.accentColor = PrismColors.amber,
   });
 
+  /// URL for the avatar image. When `null`, [initials] are shown instead.
   final String? imageUrl;
+
+  /// Initials text shown when [imageUrl] is null.
   final String? initials;
+
+  /// Diameter of the avatar. Defaults to 40px.
   final double size;
+
+  /// When set, shows a presence dot in the bottom-right corner.
   final PrismPresence? presence;
+
+  /// Border color. Defaults to [PrismColors.amber].
   final Color accentColor;
 
   @override
@@ -1950,7 +2379,9 @@ class PrismAvatar extends StatelessWidget {
 // 19. PRISM PROGRESS
 // ─────────────────────────────────────────────────────────────
 
+/// A linear progress bar with optional label, percentage, and segmented mode.
 class PrismLinearProgress extends StatelessWidget {
+  /// Creates a [PrismLinearProgress].
   const PrismLinearProgress({
     super.key,
     required this.value,
@@ -1961,12 +2392,24 @@ class PrismLinearProgress extends StatelessWidget {
     this.segments,
   });
 
-  final double value; // 0.0 to 1.0
+  /// Progress value from 0.0 to 1.0.
+  final double value;
+
+  /// Label shown above the bar (auto-uppercased).
   final String? label;
+
+  /// When `true` shows the percentage value next to the label.
   final bool showPercent;
+
+  /// Color for the filled portion. Defaults to [PrismColors.amber].
   final Color accentColor;
+
+  /// Bar height in pixels. Defaults to 6.
   final double height;
-  final int? segments; // null = solid, >0 = segmented
+
+  /// When set, renders vertical cut lines dividing the bar into equal
+  /// segments (e.g. for a stepped progress meter).
+  final int? segments;
 
   @override
   Widget build(BuildContext context) {
@@ -2032,7 +2475,9 @@ class PrismLinearProgress extends StatelessWidget {
   }
 }
 
+/// A circular progress indicator with determinate and indeterminate modes.
 class PrismCircularProgress extends StatefulWidget {
+  /// Creates a [PrismCircularProgress].
   const PrismCircularProgress({
     super.key,
     required this.value,
@@ -2043,15 +2488,27 @@ class PrismCircularProgress extends StatefulWidget {
     this.indeterminate = false,
   });
 
+  /// Progress value from 0.0 to 1.0 (ignored when [indeterminate]).
   final double value;
+
+  /// Diameter of the circle. Defaults to 64.
   final double size;
+
+  /// Thickness of the arc stroke. Defaults to 4.
   final double strokeWidth;
+
+  /// Color for the progress arc. Defaults to [PrismColors.amber].
   final Color accentColor;
+
+  /// Label shown below the circle (auto-uppercased).
   final String? label;
+
+  /// When `true` shows a spinning animation instead of a determinate arc.
   final bool indeterminate;
 
   @override
-  State<PrismCircularProgress> createState() => _PrismCircularProgressState();
+  State<PrismCircularProgress> createState() =>
+      _PrismCircularProgressState();
 }
 
 class _PrismCircularProgressState extends State<PrismCircularProgress>
@@ -2142,7 +2599,6 @@ class _CircularProgressPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = (size.width - strokeWidth) / 2;
 
-    // Track
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       0,
@@ -2155,7 +2611,6 @@ class _CircularProgressPainter extends CustomPainter {
         ..strokeCap = StrokeCap.square,
     );
 
-    // Progress
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       -math.pi / 2,
@@ -2178,7 +2633,9 @@ class _CircularProgressPainter extends CustomPainter {
 // 20. PRISM LIST TILE
 // ─────────────────────────────────────────────────────────────
 
+/// A list tile with leading, trailing, optional accent border, and dense mode.
 class PrismListTile extends StatelessWidget {
+  /// Creates a [PrismListTile].
   const PrismListTile({
     super.key,
     required this.title,
@@ -2190,12 +2647,26 @@ class PrismListTile extends StatelessWidget {
     this.dense = false,
   });
 
+  /// Title text.
   final String title;
+
+  /// Optional subtitle shown below the title.
   final String? subtitle;
+
+  /// Widget shown at the leading edge.
   final Widget? leading;
+
+  /// Widget shown at the trailing edge. Defaults to a forward arrow when
+  /// [onTap] is set and [trailing] is null.
   final Widget? trailing;
+
+  /// Called when the tile is tapped.
   final VoidCallback? onTap;
+
+  /// When set, shows a 3px accent border on the left side.
   final Color? accentLeft;
+
+  /// When `true` reduces vertical padding.
   final bool dense;
 
   @override
@@ -2259,598 +2730,6 @@ class PrismListTile extends StatelessWidget {
                 size: 16,
                 color: PrismColors.chalk.withValues(alpha: 0.25),
               ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────
-// DEMO / KITCHEN SINK
-// ─────────────────────────────────────────────────────────────
-
-void main() {
-  runApp(const PrismKitchenSink());
-}
-
-class PrismKitchenSink extends StatelessWidget {
-  const PrismKitchenSink({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Prism UI Kit',
-      theme: PrismTheme.dark,
-      debugShowCheckedModeBanner: false,
-      home: const _KitchenSinkPage(),
-    );
-  }
-}
-
-class _KitchenSinkPage extends StatefulWidget {
-  const _KitchenSinkPage();
-
-  @override
-  State<_KitchenSinkPage> createState() => _KitchenSinkPageState();
-}
-
-class _KitchenSinkPageState extends State<_KitchenSinkPage> {
-  bool _toggle = false;
-  bool _check1 = true;
-  bool _check2 = false;
-  bool _check3 = false;
-  String _radio = 'a';
-  double _sliderVal = 60;
-  int _navIndex = 0;
-  final List<bool> _chips = [true, false, false, false];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: PrismColors.ink,
-      appBar: PrismAppBar(
-        title: 'PRISM',
-        subtitle: 'UI Kit — Dark Edition',
-        actions: [
-          GestureDetector(
-            onTap: () => PrismToast.show(
-              context,
-              message: 'Prism loaded successfully.',
-              variant: PrismToastVariant.success,
-            ),
-            child: Icon(
-              Icons.bolt,
-              color: PrismColors.amber,
-              size: 22,
-            ),
-          ),
-          const SizedBox(width: PrismSpacing.px20),
-        ],
-      ),
-      bottomNavigationBar: PrismNavBar(
-        currentIndex: _navIndex,
-        onTap: (i) => setState(() => _navIndex = i),
-        items: const [
-          PrismNavBarItem(
-            icon: Icons.grid_view_outlined,
-            selectedIcon: Icons.grid_view,
-            label: 'Kit',
-          ),
-          PrismNavBarItem(
-            icon: Icons.palette_outlined,
-            selectedIcon: Icons.palette,
-            label: 'Colors',
-          ),
-          PrismNavBarItem(
-            icon: Icons.text_fields_outlined,
-            selectedIcon: Icons.text_fields,
-            label: 'Type',
-          ),
-          PrismNavBarItem(
-            icon: Icons.settings_outlined,
-            selectedIcon: Icons.settings,
-            label: 'Config',
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(PrismSpacing.px20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ── Section: Buttons
-            Text('BUTTONS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: [
-                PrismButton(
-                  label: 'Primary',
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'Ghost',
-                  variant: PrismVariant.ghost,
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'Danger',
-                  variant: PrismVariant.danger,
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'Flat',
-                  variant: PrismVariant.flat,
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'Disabled',
-                  onPressed: null,
-                ),
-                PrismButton(
-                  label: 'Loading',
-                  isLoading: true,
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'With Icon',
-                  leading: const Icon(Icons.add),
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'Small',
-                  size: PrismSize.sm,
-                  onPressed: () {},
-                ),
-                PrismButton(
-                  label: 'Large',
-                  size: PrismSize.lg,
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismButton(
-              label: 'Full Width Button',
-              isFullWidth: true,
-              trailing: const Icon(Icons.arrow_forward),
-              onPressed: () {},
-            ),
-
-            const PrismDivider(label: 'Badges & Tags'),
-
-            // ── Section: Badges
-            Text('BADGES', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                PrismBadge(label: 'Success', variant: PrismBadgeVariant.success, dot: true),
-                PrismBadge(label: 'Error', variant: PrismBadgeVariant.error, dot: true),
-                PrismBadge(label: 'Warning', variant: PrismBadgeVariant.warning),
-                PrismBadge(label: 'Info', variant: PrismBadgeVariant.info),
-                PrismBadge(label: 'Neutral', variant: PrismBadgeVariant.neutral),
-                PrismBadge(label: 'Accent', variant: PrismBadgeVariant.accent),
-              ],
-            ),
-            const SizedBox(height: PrismSpacing.px20),
-
-            // ── Section: Tags
-            Text('TAGS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                PrismTag(label: 'flutter'),
-                PrismTag(label: 'firebase'),
-                PrismTag(label: 'dart', onRemove: () {}),
-                PrismTag(label: 'pendura', onRemove: () {}),
-              ],
-            ),
-            const SizedBox(height: PrismSpacing.px20),
-
-            // ── Section: Chips
-            Text('FILTER CHIPS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                PrismChip(
-                  label: 'All',
-                  selected: _chips[0],
-                  icon: Icons.apps,
-                  onToggle: () => setState(() {
-                    for (int i = 0; i < _chips.length; i++) { _chips[i] = i == 0; }
-                  }),
-                ),
-                PrismChip(
-                  label: 'Active',
-                  selected: _chips[1],
-                  icon: Icons.check_circle_outline,
-                  onToggle: () => setState(() => _chips[1] = !_chips[1]),
-                ),
-                PrismChip(
-                  label: 'Pending',
-                  selected: _chips[2],
-                  icon: Icons.hourglass_empty,
-                  onToggle: () => setState(() => _chips[2] = !_chips[2]),
-                ),
-                PrismChip(
-                  label: 'Archived',
-                  selected: _chips[3],
-                  icon: Icons.archive_outlined,
-                  onToggle: () => setState(() => _chips[3] = !_chips[3]),
-                ),
-              ],
-            ),
-
-            const PrismDivider(label: 'Form Controls'),
-
-            // ── Section: Input
-            Text('TEXT INPUT', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            const PrismInput(
-              label: 'Business Name',
-              hint: 'e.g. Pendura Technologies',
-              helper: 'This will appear on your invoices.',
-            ),
-            const SizedBox(height: PrismSpacing.px16),
-            const PrismInput(
-              label: 'Error State',
-              hint: 'enter@email.com',
-              error: 'Email address is not valid.',
-              prefix: Icon(Icons.mail_outline),
-            ),
-            const SizedBox(height: PrismSpacing.px16),
-            const PrismInput(
-              label: 'Password',
-              hint: '············',
-              obscureText: true,
-              suffix: Icon(Icons.visibility_outlined),
-            ),
-
-            const SizedBox(height: PrismSpacing.px24),
-
-            // ── Toggle + Checkbox
-            Text('TOGGLES', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismToggle(
-              value: _toggle,
-              label: 'Enable dark mode',
-              description: 'Apply across all sessions',
-              onChanged: (v) => setState(() => _toggle = v),
-            ),
-
-            const SizedBox(height: PrismSpacing.px20),
-
-            Text('CHECKBOXES', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PrismCheckbox(
-                  value: _check1,
-                  label: 'Enable activity logging',
-                  onChanged: (v) => setState(() => _check1 = v),
-                ),
-                const SizedBox(height: 10),
-                PrismCheckbox(
-                  value: _check2,
-                  label: 'Receive product updates',
-                  onChanged: (v) => setState(() => _check2 = v),
-                ),
-                const SizedBox(height: 10),
-                PrismCheckbox(
-                  value: _check3,
-                  indeterminate: true,
-                  label: 'Indeterminate state',
-                  onChanged: (v) => setState(() => _check3 = v),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: PrismSpacing.px20),
-
-            Text('RADIO', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismRadioGroup<String>(
-              value: _radio,
-              onChanged: (v) => setState(() => _radio = v),
-              options: const [
-                PrismRadioOption(
-                  value: 'a',
-                  label: 'Starter',
-                  description: 'For solo founders. Up to 1 workspace.',
-                ),
-                PrismRadioOption(
-                  value: 'b',
-                  label: 'Pro',
-                  description: 'For growing teams. Unlimited workspaces.',
-                ),
-                PrismRadioOption(
-                  value: 'c',
-                  label: 'Enterprise',
-                  description: 'Custom limits, SSO, and SLA support.',
-                ),
-              ],
-            ),
-
-            const SizedBox(height: PrismSpacing.px20),
-
-            // ── Slider
-            Text('SLIDER', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismSlider(
-              value: _sliderVal,
-              min: 0,
-              max: 100,
-              label: 'Volume',
-              onChanged: (v) => setState(() => _sliderVal = v),
-            ),
-            const SizedBox(height: PrismSpacing.px16),
-            PrismSlider(
-              value: _sliderVal,
-              min: 0,
-              max: 100,
-              divisions: 5,
-              label: 'Segments',
-              accentColor: PrismColors.lime,
-              onChanged: (v) => setState(() => _sliderVal = v),
-            ),
-
-            const PrismDivider(label: 'Data Display'),
-
-            // ── Progress
-            Text('PROGRESS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismLinearProgress(value: 0.72, label: 'Storage Used'),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismLinearProgress(
-              value: 0.45,
-              label: 'Segmented',
-              accentColor: PrismColors.lime,
-              height: 8,
-              segments: 5,
-            ),
-            const SizedBox(height: PrismSpacing.px20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                PrismCircularProgress(value: 0.72, label: 'CPU'),
-                PrismCircularProgress(
-                  value: 0.45,
-                  label: 'Memory',
-                  accentColor: PrismColors.lime,
-                ),
-                PrismCircularProgress(
-                  value: 0.91,
-                  label: 'Disk',
-                  accentColor: PrismColors.coral,
-                ),
-                PrismCircularProgress(
-                  value: 0,
-                  indeterminate: true,
-                  label: 'Loading',
-                  accentColor: PrismColors.sky,
-                ),
-              ],
-            ),
-
-            const PrismDivider(label: 'Cards & Lists'),
-
-            // ── Cards
-            Text('CARDS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismCard(
-              label: 'Revenue This Month',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('₹ 1,24,500',
-                      style: PrismTypography.displayM.copyWith(color: PrismColors.amber)),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(Icons.trending_up, color: PrismColors.lime, size: 14),
-                      const SizedBox(width: 4),
-                      Text('+12.4% from last month',
-                          style: PrismTypography.bodyS
-                              .copyWith(color: PrismColors.lime)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismCard(
-              label: 'System Alert',
-              accent: PrismColors.coral,
-              child: Text(
-                'Replication lag on primary DB exceeded 500ms. Consider scaling the read replica or reducing write frequency.',
-                style: PrismTypography.bodyS
-                    .copyWith(color: PrismColors.chalk.withValues(alpha: 0.7)),
-              ),
-            ),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismCard(
-              accent: PrismColors.sky,
-              child: Row(
-                children: [
-                  PrismAvatar(initials: 'MV', presence: PrismPresence.online),
-                  const SizedBox(width: PrismSpacing.px12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Mahesh V', style: PrismTypography.headingS),
-                        Text('Founder — Pendura',
-                            style: PrismTypography.bodyS.copyWith(
-                                color: PrismColors.chalk.withValues(alpha: 0.45))),
-                      ],
-                    ),
-                  ),
-                  PrismBadge(label: 'Admin', variant: PrismBadgeVariant.accent),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: PrismSpacing.px20),
-
-            // ── Avatars
-            Text('AVATARS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Row(
-              children: [
-                PrismAvatar(initials: 'MV', size: 48, presence: PrismPresence.online),
-                const SizedBox(width: 12),
-                PrismAvatar(initials: 'AK', size: 40, presence: PrismPresence.busy, accentColor: PrismColors.coral),
-                const SizedBox(width: 12),
-                PrismAvatar(initials: 'RJ', size: 32, presence: PrismPresence.away, accentColor: PrismColors.lime),
-                const SizedBox(width: 12),
-                PrismAvatar(initials: 'PX', size: 24, presence: PrismPresence.offline, accentColor: PrismColors.sky),
-              ],
-            ),
-
-            const SizedBox(height: PrismSpacing.px20),
-
-            // ── List
-            Text('LIST', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            PrismListTile(
-              title: 'Clinic Billing Module',
-              subtitle: 'Updated 2 hours ago',
-              leading: Container(
-                width: 36,
-                height: 36,
-                color: PrismColors.amber.withValues(alpha: 0.15),
-                child: const Icon(Icons.receipt_long, color: PrismColors.amber, size: 18),
-              ),
-              accentLeft: PrismColors.amber,
-              trailing: const PrismBadge(label: 'Active', variant: PrismBadgeVariant.success),
-              onTap: () {},
-            ),
-            PrismListTile(
-              title: 'TrashFlow Gmail Deletion',
-              subtitle: 'Last sync 5 min ago',
-              leading: Container(
-                width: 36,
-                height: 36,
-                color: PrismColors.coral.withValues(alpha: 0.15),
-                child: const Icon(Icons.delete_outline, color: PrismColors.coral, size: 18),
-              ),
-              accentLeft: PrismColors.coral,
-              onTap: () {},
-            ),
-            PrismListTile(
-              title: 'Backstage',
-              subtitle: 'Creator workflow — Draft',
-              leading: Container(
-                width: 36,
-                height: 36,
-                color: PrismColors.lime.withValues(alpha: 0.15),
-                child: const Icon(Icons.movie_creation_outlined, color: PrismColors.lime, size: 18),
-              ),
-              dense: true,
-              onTap: () {},
-            ),
-
-            const PrismDivider(label: 'Overlay Actions'),
-
-            // ── Dialog + Sheet + Toast triggers
-            Text('OVERLAYS', style: PrismTypography.label.copyWith(color: PrismColors.amber)),
-            const SizedBox(height: PrismSpacing.px12),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: [
-                PrismButton(
-                  label: 'Show Dialog',
-                  variant: PrismVariant.ghost,
-                  leading: const Icon(Icons.open_in_new),
-                  onPressed: () => PrismDialog.show(
-                    context,
-                    title: 'Confirm Deletion',
-                    body: const Text(
-                        'This action is permanent and cannot be undone. All associated data will be removed from our servers within 30 days.'),
-                    primaryLabel: 'Delete',
-                    secondaryLabel: 'Cancel',
-                    isDestructive: true,
-                    onPrimary: () => Navigator.of(context).pop(),
-                  ),
-                ),
-                PrismButton(
-                  label: 'Toast',
-                  variant: PrismVariant.ghost,
-                  leading: const Icon(Icons.notifications_none),
-                  onPressed: () => PrismToast.show(
-                    context,
-                    message: 'Changes saved successfully.',
-                    variant: PrismToastVariant.success,
-                  ),
-                ),
-                PrismButton(
-                  label: 'Bottom Sheet',
-                  variant: PrismVariant.ghost,
-                  leading: const Icon(Icons.expand_less),
-                  onPressed: () => PrismBottomSheet.show(
-                    context,
-                    title: 'Export Options',
-                    children: [
-                      PrismBottomSheetAction(
-                        label: 'Export as PDF',
-                        icon: Icons.picture_as_pdf_outlined,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      PrismBottomSheetAction(
-                        label: 'Export as CSV',
-                        icon: Icons.table_chart_outlined,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      PrismBottomSheetAction(
-                        label: 'Share via Link',
-                        icon: Icons.link,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      PrismBottomSheetAction(
-                        label: 'Delete Record',
-                        icon: Icons.delete_outline,
-                        isDestructive: true,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: PrismSpacing.px48),
-
-            // Footer
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    'PRISM',
-                    style: PrismTypography.displayM.copyWith(
-                      color: PrismColors.amber,
-                      letterSpacing: 8,
-                    ),
-                  ),
-                  Text(
-                    'UI Kit by Pendura',
-                    style: PrismTypography.label.copyWith(
-                      color: PrismColors.chalk.withValues(alpha: 0.25),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: PrismSpacing.px32),
           ],
         ),
       ),
