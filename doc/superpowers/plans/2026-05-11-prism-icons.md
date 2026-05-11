@@ -1,0 +1,849 @@
+# Prism Icon Set Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Create ~310 custom SVG icons for Prism UI Kit, a `PrismIcon`/`PrismBrandIcon` widget API, and migrate internal components from Material Icons.
+
+**Architecture:** SVG assets organized in category subdirectories under `assets/icons/`, accessed via `PrismIcons.*` static string constants. `PrismIcon` wraps `SvgPicture.asset` with color/size props. `PrismBrandIcon` preserves brand-native colors.
+
+**Tech Stack:** Flutter/Dart, flutter_svg v2, SVG 1.1
+
+---
+
+### Task 1: Add dependency & assets config
+
+**Files:**
+- Modify: `pubspec.yaml`
+
+- [ ] **Add flutter_svg dependency and assets config**
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.10
+
+flutter:
+  assets:
+    - assets/icons/
+```
+
+- [ ] **Commit**
+
+```bash
+git add pubspec.yaml && git commit -m "feat: add flutter_svg and assets config"
+```
+
+---
+
+### Task 2: Create asset directories
+
+- [ ] **Create directory structure**
+
+```bash
+mkdir -p assets/icons/{arrows,actions,communication,media,status,ui,commerce,documents,weather,tech,editing,transport,business,shapes,accessibility,brands,academic}
+```
+
+- [ ] **Commit**
+
+```bash
+git add assets/icons/ && git commit -m "feat: create icon asset directories"
+```
+
+---
+
+### Task 3-19: SVG generation (batched by category)
+
+Each task creates SVG files in one category directory. All UI icons use this template:
+
+```xml
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter">
+  <path d="..." />
+</svg>
+```
+
+Brand icons use:
+```xml
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+  <path d="..." />
+</svg>
+```
+
+Academic icons follow the same line style as UI icons.
+
+---
+
+### Task 20: Create PrismIcon widget
+
+**Files:**
+- Create: `lib/src/prism_icon.dart`
+
+- [ ] **Write PrismIcon widget**
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class PrismIcon extends StatelessWidget {
+  const PrismIcon(
+    this.icon, {
+    super.key,
+    this.size = 24,
+    this.color,
+    this.semanticLabel,
+  });
+
+  final String icon;
+  final double size;
+  final Color? color;
+  final String? semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final defaultColor = Theme.of(context).colorScheme.onSurface;
+    return SvgPicture.asset(
+      icon,
+      width: size,
+      height: size,
+      colorFilter: ColorFilter.mode(
+        color ?? defaultColor,
+        BlendMode.srcIn,
+      ),
+      semanticsLabel: semanticLabel,
+    );
+  }
+}
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_icon.dart && git commit -m "feat: add PrismIcon widget"
+```
+
+---
+
+### Task 21: Create PrismBrandIcon widget
+
+**Files:**
+- Create: `lib/src/prism_brand_icon.dart`
+
+- [ ] **Write PrismBrandIcon widget**
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class PrismBrandIcon extends StatelessWidget {
+  const PrismBrandIcon(
+    this.icon, {
+    super.key,
+    this.size = 24,
+  });
+
+  final String icon;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      icon,
+      width: size,
+      height: size,
+      semanticsLabel: null,
+    );
+  }
+}
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_brand_icon.dart && git commit -m "feat: add PrismBrandIcon widget"
+```
+
+---
+
+### Task 22: Create PrismIcons constants
+
+**Files:**
+- Create: `lib/src/prism_icons.dart`
+
+- [ ] **Write PrismIcons class with all ~310 constants**
+
+```dart
+class PrismIcons {
+  PrismIcons._();
+
+  // Arrows
+  static const String arrowDown = 'assets/icons/arrows/arrow-down.svg';
+  static const String arrowLeft = 'assets/icons/arrows/arrow-left.svg';
+  static const String arrowRight = 'assets/icons/arrows/arrow-right.svg';
+  static const String arrowUp = 'assets/icons/arrows/arrow-up.svg';
+  static const String chevronDown = 'assets/icons/arrows/chevron-down.svg';
+  static const String chevronLeft = 'assets/icons/arrows/chevron-left.svg';
+  static const String chevronRight = 'assets/icons/arrows/chevron-right.svg';
+  static const String chevronUp = 'assets/icons/arrows/chevron-up.svg';
+  static const String cornerDownLeft = 'assets/icons/arrows/corner-down-left.svg';
+  static const String cornerDownRight = 'assets/icons/arrows/corner-down-right.svg';
+  static const String cornerUpLeft = 'assets/icons/arrows/corner-up-left.svg';
+  static const String cornerUpRight = 'assets/icons/arrows/corner-up-right.svg';
+  static const String externalLink = 'assets/icons/arrows/external-link.svg';
+  static const String refresh = 'assets/icons/arrows/refresh.svg';
+  static const String maximize = 'assets/icons/arrows/maximize.svg';
+  static const String minimize = 'assets/icons/arrows/minimize.svg';
+  static const String move = 'assets/icons/arrows/move.svg';
+  static const String shuffle = 'assets/icons/arrows/shuffle.svg';
+  static const String repeat = 'assets/icons/arrows/repeat.svg';
+  static const String collapse = 'assets/icons/arrows/collapse.svg';
+
+  // Actions
+  static const String check = 'assets/icons/actions/check.svg';
+  static const String close = 'assets/icons/actions/close.svg';
+  static const String copy = 'assets/icons/actions/copy.svg';
+  static const String download = 'assets/icons/actions/download.svg';
+  static const String upload = 'assets/icons/actions/upload.svg';
+  static const String edit = 'assets/icons/actions/edit.svg';
+  static const String filter = 'assets/icons/actions/filter.svg';
+  static const String plus = 'assets/icons/actions/plus.svg';
+  static const String minus = 'assets/icons/actions/minus.svg';
+  static const String search = 'assets/icons/actions/search.svg';
+  static const String share = 'assets/icons/actions/share.svg';
+  static const String trash = 'assets/icons/actions/trash.svg';
+  static const String moreHorizontal = 'assets/icons/actions/more-horizontal.svg';
+  static const String moreVertical = 'assets/icons/actions/more-vertical.svg';
+  static const String link = 'assets/icons/actions/link.svg';
+  static const String linkOff = 'assets/icons/actions/link-off.svg';
+  static const String redo = 'assets/icons/actions/redo.svg';
+  static const String undo = 'assets/icons/actions/undo.svg';
+  static const String reply = 'assets/icons/actions/reply.svg';
+  static const String forward = 'assets/icons/actions/forward.svg';
+  static const String crop = 'assets/icons/actions/crop.svg';
+  static const String slash = 'assets/icons/actions/slash.svg';
+  static const String select = 'assets/icons/actions/select.svg';
+  static const String crosshair = 'assets/icons/actions/crosshair.svg';
+  static const String thumbsUp = 'assets/icons/actions/thumbs-up.svg';
+  static const String thumbsDown = 'assets/icons/actions/thumbs-down.svg';
+  static const String ban = 'assets/icons/actions/ban.svg';
+  static const String pin = 'assets/icons/actions/pin.svg';
+  static const String pinOff = 'assets/icons/actions/pin-off.svg';
+  static const String power = 'assets/icons/actions/power.svg';
+
+  // Communication
+  static const String mail = 'assets/icons/communication/mail.svg';
+  static const String mailOpen = 'assets/icons/communication/mail-open.svg';
+  static const String mailReply = 'assets/icons/communication/mail-reply.svg';
+  static const String mailForward = 'assets/icons/communication/mail-forward.svg';
+  static const String send = 'assets/icons/communication/send.svg';
+  static const String message = 'assets/icons/communication/message.svg';
+  static const String messageCircle = 'assets/icons/communication/message-circle.svg';
+  static const String phone = 'assets/icons/communication/phone.svg';
+  static const String phoneCall = 'assets/icons/communication/phone-call.svg';
+  static const String phoneIncoming = 'assets/icons/communication/phone-incoming.svg';
+  static const String phoneOutgoing = 'assets/icons/communication/phone-outgoing.svg';
+  static const String phoneOff = 'assets/icons/communication/phone-off.svg';
+  static const String bell = 'assets/icons/communication/bell.svg';
+  static const String bellOff = 'assets/icons/communication/bell-off.svg';
+  static const String archive = 'assets/icons/communication/archive.svg';
+  static const String inbox = 'assets/icons/communication/inbox.svg';
+  static const String outbox = 'assets/icons/communication/outbox.svg';
+  static const String paperPlane = 'assets/icons/communication/paper-plane.svg';
+
+  // Media
+  static const String play = 'assets/icons/media/play.svg';
+  static const String pause = 'assets/icons/media/pause.svg';
+  static const String stop = 'assets/icons/media/stop.svg';
+  static const String record = 'assets/icons/media/record.svg';
+  static const String skipBack = 'assets/icons/media/skip-back.svg';
+  static const String skipForward = 'assets/icons/media/skip-forward.svg';
+  static const String volume = 'assets/icons/media/volume.svg';
+  static const String volume1 = 'assets/icons/media/volume-1.svg';
+  static const String volume2 = 'assets/icons/media/volume-2.svg';
+  static const String volumeX = 'assets/icons/media/volume-x.svg';
+  static const String music = 'assets/icons/media/music.svg';
+  static const String camera = 'assets/icons/media/camera.svg';
+  static const String video = 'assets/icons/media/video.svg';
+  static const String image = 'assets/icons/media/image.svg';
+  static const String folder = 'assets/icons/media/folder.svg';
+  static const String headphones = 'assets/icons/media/headphones.svg';
+  static const String mic = 'assets/icons/media/mic.svg';
+  static const String micOff = 'assets/icons/media/mic-off.svg';
+  static const String cast = 'assets/icons/media/cast.svg';
+
+  // Status
+  static const String info = 'assets/icons/status/info.svg';
+  static const String alertCircle = 'assets/icons/status/alert-circle.svg';
+  static const String alertTriangle = 'assets/icons/status/alert-triangle.svg';
+  static const String checkCircle = 'assets/icons/status/check-circle.svg';
+  static const String helpCircle = 'assets/icons/status/help-circle.svg';
+  static const String shield = 'assets/icons/status/shield.svg';
+  static const String shieldCheck = 'assets/icons/status/shield-check.svg';
+  static const String shieldAlert = 'assets/icons/status/shield-alert.svg';
+  static const String shieldOff = 'assets/icons/status/shield-off.svg';
+  static const String lock = 'assets/icons/status/lock.svg';
+  static const String unlock = 'assets/icons/status/unlock.svg';
+  static const String eye = 'assets/icons/status/eye.svg';
+  static const String eyeOff = 'assets/icons/status/eye-off.svg';
+  static const String wifi = 'assets/icons/status/wifi.svg';
+  static const String wifiOff = 'assets/icons/status/wifi-off.svg';
+  static const String bluetooth = 'assets/icons/status/bluetooth.svg';
+  static const String battery = 'assets/icons/status/battery.svg';
+  static const String batteryCharging = 'assets/icons/status/battery-charging.svg';
+  static const String batteryDead = 'assets/icons/status/battery-dead.svg';
+  static const String signal = 'assets/icons/status/signal.svg';
+  static const String signalOff = 'assets/icons/status/signal-off.svg';
+
+  // UI Essentials
+  static const String home = 'assets/icons/ui/home.svg';
+  static const String menu = 'assets/icons/ui/menu.svg';
+  static const String grid = 'assets/icons/ui/grid.svg';
+  static const String list = 'assets/icons/ui/list.svg';
+  static const String settings = 'assets/icons/ui/settings.svg';
+  static const String bookmark = 'assets/icons/ui/bookmark.svg';
+  static const String heart = 'assets/icons/ui/heart.svg';
+  static const String star = 'assets/icons/ui/star.svg';
+  static const String halfStar = 'assets/icons/ui/half-star.svg';
+  static const String clock = 'assets/icons/ui/clock.svg';
+  static const String calendar = 'assets/icons/ui/calendar.svg';
+  static const String user = 'assets/icons/ui/user.svg';
+  static const String users = 'assets/icons/ui/users.svg';
+  static const String userPlus = 'assets/icons/ui/user-plus.svg';
+  static const String userMinus = 'assets/icons/ui/user-minus.svg';
+  static const String userCheck = 'assets/icons/ui/user-check.svg';
+  static const String userX = 'assets/icons/ui/user-x.svg';
+  static const String logIn = 'assets/icons/ui/log-in.svg';
+  static const String logOut = 'assets/icons/ui/log-out.svg';
+  static const String hash = 'assets/icons/ui/hash.svg';
+  static const String globe = 'assets/icons/ui/globe.svg';
+  static const String compass = 'assets/icons/ui/compass.svg';
+  static const String flag = 'assets/icons/ui/flag.svg';
+
+  // Commerce
+  static const String cart = 'assets/icons/commerce/cart.svg';
+  static const String shoppingBag = 'assets/icons/commerce/shopping-bag.svg';
+  static const String creditCard = 'assets/icons/commerce/credit-card.svg';
+  static const String wallet = 'assets/icons/commerce/wallet.svg';
+  static const String dollarSign = 'assets/icons/commerce/dollar-sign.svg';
+  static const String tag = 'assets/icons/commerce/tag.svg';
+  static const String barChart = 'assets/icons/commerce/bar-chart.svg';
+  static const String pieChart = 'assets/icons/commerce/pie-chart.svg';
+  static const String trendingUp = 'assets/icons/commerce/trending-up.svg';
+  static const String trendingDown = 'assets/icons/commerce/trending-down.svg';
+  static const String receipt = 'assets/icons/commerce/receipt.svg';
+  static const String coupon = 'assets/icons/commerce/coupon.svg';
+  static const String percent = 'assets/icons/commerce/percent.svg';
+  static const String gift = 'assets/icons/commerce/gift.svg';
+  static const String package = 'assets/icons/commerce/package.svg';
+  static const String truck = 'assets/icons/commerce/truck.svg';
+
+  // Documents
+  static const String file = 'assets/icons/documents/file.svg';
+  static const String fileText = 'assets/icons/documents/file-text.svg';
+  static const String fileImage = 'assets/icons/documents/file-image.svg';
+  static const String folderOpen = 'assets/icons/documents/folder-open.svg';
+  static const String clipboard = 'assets/icons/documents/clipboard.svg';
+  static const String clipboardCheck = 'assets/icons/documents/clipboard-check.svg';
+  static const String clipboardList = 'assets/icons/documents/clipboard-list.svg';
+  static const String paperclip = 'assets/icons/documents/paperclip.svg';
+  static const String attachment = 'assets/icons/documents/attachment.svg';
+  static const String printer = 'assets/icons/documents/printer.svg';
+  static const String save = 'assets/icons/documents/save.svg';
+  static const String scan = 'assets/icons/documents/scan.svg';
+  static const String stickyNote = 'assets/icons/documents/sticky-note.svg';
+  static const String notepad = 'assets/icons/documents/notepad.svg';
+
+  // Weather
+  static const String sun = 'assets/icons/weather/sun.svg';
+  static const String moon = 'assets/icons/weather/moon.svg';
+  static const String cloud = 'assets/icons/weather/cloud.svg';
+  static const String sunRise = 'assets/icons/weather/sun-rise.svg';
+  static const String sunSet = 'assets/icons/weather/sun-set.svg';
+  static const String thermometer = 'assets/icons/weather/thermometer.svg';
+  static const String droplet = 'assets/icons/weather/droplet.svg';
+  static const String snowflake = 'assets/icons/weather/snowflake.svg';
+  static const String wind = 'assets/icons/weather/wind.svg';
+  static const String umbrella = 'assets/icons/weather/umbrella.svg';
+
+  // Tech
+  static const String monitor = 'assets/icons/tech/monitor.svg';
+  static const String tablet = 'assets/icons/tech/tablet.svg';
+  static const String smartphone = 'assets/icons/tech/smartphone.svg';
+  static const String cpu = 'assets/icons/tech/cpu.svg';
+  static const String database = 'assets/icons/tech/database.svg';
+  static const String server = 'assets/icons/tech/server.svg';
+  static const String code = 'assets/icons/tech/code.svg';
+  static const String terminal = 'assets/icons/tech/terminal.svg';
+  static const String gitBranch = 'assets/icons/tech/git-branch.svg';
+  static const String gitCommit = 'assets/icons/tech/git-commit.svg';
+  static const String gitPR = 'assets/icons/tech/git-pull-request.svg';
+  static const String command = 'assets/icons/tech/command.svg';
+  static const String disc = 'assets/icons/tech/disc.svg';
+  static const String layers = 'assets/icons/tech/layers.svg';
+
+  // Editing
+  static const String penTool = 'assets/icons/editing/pen-tool.svg';
+  static const String pencil = 'assets/icons/editing/pencil.svg';
+  static const String paintBucket = 'assets/icons/editing/paint-bucket.svg';
+  static const String colorWheel = 'assets/icons/editing/color-wheel.svg';
+  static const String ruler = 'assets/icons/editing/ruler.svg';
+  static const String eyeDropper = 'assets/icons/editing/eye-dropper.svg';
+  static const String flipH = 'assets/icons/editing/flip-horizontal.svg';
+  static const String flipV = 'assets/icons/editing/flip-vertical.svg';
+  static const String minusCircle = 'assets/icons/editing/minus-circle.svg';
+  static const String plusCircle = 'assets/icons/editing/plus-circle.svg';
+  static const String cursor = 'assets/icons/editing/cursor.svg';
+
+  // Transport
+  static const String car = 'assets/icons/transport/car.svg';
+  static const String truckTransport = 'assets/icons/transport/truck.svg';
+  static const String plane = 'assets/icons/transport/plane.svg';
+  static const String ship = 'assets/icons/transport/ship.svg';
+  static const String bike = 'assets/icons/transport/bike.svg';
+  static const String train = 'assets/icons/transport/train.svg';
+  static const String bus = 'assets/icons/transport/bus.svg';
+  static const String navigation = 'assets/icons/transport/navigation.svg';
+  static const String fuel = 'assets/icons/transport/fuel.svg';
+  static const String parking = 'assets/icons/transport/parking.svg';
+
+  // Business
+  static const String building = 'assets/icons/business/building.svg';
+  static const String store = 'assets/icons/business/store.svg';
+  static const String briefcase = 'assets/icons/business/briefcase.svg';
+  static const String map = 'assets/icons/business/map.svg';
+  static const String mapPin = 'assets/icons/business/map-pin.svg';
+  static const String trophy = 'assets/icons/business/trophy.svg';
+  static const String certificate = 'assets/icons/business/certificate.svg';
+  static const String badge = 'assets/icons/business/badge.svg';
+
+  // Shapes
+  static const String circle = 'assets/icons/shapes/circle.svg';
+  static const String square = 'assets/icons/shapes/square.svg';
+  static const String triangle = 'assets/icons/shapes/triangle.svg';
+  static const String hexagon = 'assets/icons/shapes/hexagon.svg';
+  static const String diamond = 'assets/icons/shapes/diamond.svg';
+  static const String dot = 'assets/icons/shapes/dot.svg';
+  static const String toggleLeft = 'assets/icons/shapes/toggle-left.svg';
+  static const String toggleRight = 'assets/icons/shapes/toggle-right.svg';
+  static const String radio = 'assets/icons/shapes/radio.svg';
+  static const String minusSquare = 'assets/icons/shapes/minus-square.svg';
+
+  // Accessibility
+  static const String wheelchair = 'assets/icons/accessibility/wheelchair.svg';
+  static const String signLanguage = 'assets/icons/accessibility/sign-language.svg';
+  static const String ear = 'assets/icons/accessibility/ear.svg';
+  static const String assistiveListening = 'assets/icons/accessibility/assistive-listening.svg';
+  static const String accessible = 'assets/icons/accessibility/accessible.svg';
+  static const String blind = 'assets/icons/accessibility/blind.svg';
+
+  // Brands
+  static const String apple = 'assets/icons/brands/apple.svg';
+  static const String google = 'assets/icons/brands/google.svg';
+  static const String microsoft = 'assets/icons/brands/microsoft.svg';
+  static const String facebook = 'assets/icons/brands/facebook.svg';
+  static const String messenger = 'assets/icons/brands/messenger.svg';
+  static const String instagram = 'assets/icons/brands/instagram.svg';
+  static const String whatsapp = 'assets/icons/brands/whatsapp.svg';
+  static const String twitter = 'assets/icons/brands/twitter.svg';
+  static const String x = 'assets/icons/brands/x.svg';
+  static const String linkedin = 'assets/icons/brands/linkedin.svg';
+  static const String youtube = 'assets/icons/brands/youtube.svg';
+  static const String github = 'assets/icons/brands/github.svg';
+  static const String gitlab = 'assets/icons/brands/gitlab.svg';
+  static const String bitbucket = 'assets/icons/brands/bitbucket.svg';
+  static const String figma = 'assets/icons/brands/figma.svg';
+  static const String slack = 'assets/icons/brands/slack.svg';
+  static const String discord = 'assets/icons/brands/discord.svg';
+  static const String zoom = 'assets/icons/brands/zoom.svg';
+  static const String notion = 'assets/icons/brands/notion.svg';
+  static const String vsCode = 'assets/icons/brands/vscode.svg';
+  static const String chrome = 'assets/icons/brands/chrome.svg';
+  static const String firefox = 'assets/icons/brands/firefox.svg';
+  static const String safari = 'assets/icons/brands/safari.svg';
+  static const String edge = 'assets/icons/brands/edge.svg';
+  static const String docker = 'assets/icons/brands/docker.svg';
+  static const String aws = 'assets/icons/brands/aws.svg';
+  static const String python = 'assets/icons/brands/python.svg';
+  static const String html5 = 'assets/icons/brands/html5.svg';
+  static const String css3 = 'assets/icons/brands/css3.svg';
+  static const String javascript = 'assets/icons/brands/javascript.svg';
+  static const String typescript = 'assets/icons/brands/typescript.svg';
+  static const String react = 'assets/icons/brands/react.svg';
+  static const String nextjs = 'assets/icons/brands/nextjs.svg';
+  static const String flutter = 'assets/icons/brands/flutter.svg';
+  static const String dart = 'assets/icons/brands/dart.svg';
+
+  // Academic
+  static const String graduationCap = 'assets/icons/academic/graduation-cap.svg';
+  static const String book = 'assets/icons/academic/book.svg';
+  static const String bookOpen = 'assets/icons/academic/book-open.svg';
+  static const String bookMarked = 'assets/icons/academic/book-marked.svg';
+  static const String library = 'assets/icons/academic/library.svg';
+  static const String certificate = 'assets/icons/academic/certificate.svg';
+  static const String medal = 'assets/icons/academic/medal.svg';
+  static const String pen = 'assets/icons/academic/pen.svg';
+  static const String ruler = 'assets/icons/academic/ruler.svg';
+  static const String flask = 'assets/icons/academic/flask.svg';
+  static const String atom = 'assets/icons/academic/atom.svg';
+  static const String dna = 'assets/icons/academic/dna.svg';
+  static const String microscope = 'assets/icons/academic/microscope.svg';
+  static const String globe = 'assets/icons/academic/globe.svg';
+  static const String equation = 'assets/icons/academic/equation.svg';
+  static const String calculator = 'assets/icons/academic/calculator.svg';
+  static const String notebook = 'assets/icons/academic/notebook.svg';
+  static const String scroll = 'assets/icons/academic/scroll.svg';
+  static const String lecture = 'assets/icons/academic/lecture.svg';
+  static const String university = 'assets/icons/academic/university.svg';
+}
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_icons.dart && git commit -m "feat: add PrismIcons constants"
+```
+
+---
+
+### Task 23: Export new files from prism_ui_kit.dart
+
+**Files:**
+- Modify: `lib/prism_ui_kit.dart`
+
+- [ ] **Add exports for PrismIcon and PrismIcons**
+
+Add after existing exports:
+```dart
+export 'src/prism_icon.dart';
+export 'src/prism_brand_icon.dart';
+export 'src/prism_icons.dart';
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/prism_ui_kit.dart && git commit -m "feat: export PrismIcon, PrismBrandIcon, PrismIcons"
+```
+
+---
+
+### Task 24: Migrate PrismSearchField to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_search_field.dart`
+
+- [ ] **Replace Icons.search and Icons.close**
+
+Add import:
+```dart
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+Icon(Icons.search, ...)
+// After
+PrismIcon(PrismIcons.search, size: 18, color: PrismColors.chalk.withValues(alpha: 0.3))
+
+// Before  
+Icon(Icons.close, ...)
+// After
+PrismIcon(PrismIcons.close, size: 18, color: PrismColors.chalk.withValues(alpha: 0.3))
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_search_field.dart && git commit -m "refactor: migrate search field to PrismIcons"
+```
+
+---
+
+### Task 25: Migrate PrismAccordion to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_accordion.dart`
+
+- [ ] **Replace Icons.keyboard_arrow_down**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+Icon(Icons.keyboard_arrow_down, ...)
+// After
+PrismIcon(PrismIcons.chevronDown, size: 18, color: PrismColors.chalk.withValues(alpha: 0.4))
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_accordion.dart && git commit -m "refactor: migrate accordion to PrismIcons"
+```
+
+---
+
+### Task 26: Migrate PrismPicker to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_picker.dart`
+
+- [ ] **Replace Icons.close and Icons.check**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+Icon(Icons.close, ...)
+// After
+PrismIcon(PrismIcons.close, size: 20, color: PrismColors.chalk.withValues(alpha: 0.4))
+
+// Before
+Icon(Icons.check, ...)
+// After
+PrismIcon(PrismIcons.check, size: 18, color: PrismColors.amber)
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_picker.dart && git commit -m "refactor: migrate picker to PrismIcons"
+```
+
+---
+
+### Task 27: Migrate PrismCheckbox to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_checkbox.dart`
+
+- [ ] **Replace Icons.check**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+const Icon(Icons.check, size: 14, color: PrismColors.ink)
+// After
+PrismIcon(PrismIcons.check, size: 14, color: PrismColors.ink)
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_checkbox.dart && git commit -m "refactor: migrate checkbox to PrismIcons"
+```
+
+---
+
+### Task 28: Migrate PrismStepper to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_stepper.dart`
+
+- [ ] **Replace Icons.check**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+const Icon(Icons.check, size: 16, color: PrismColors.ink)
+// After
+const PrismIcon(PrismIcons.check, size: 16, color: PrismColors.ink)
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_stepper.dart && git commit -m "refactor: migrate stepper to PrismIcons"
+```
+
+---
+
+### Task 29: Migrate PrismCopyButton to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_copy_button.dart`
+
+- [ ] **Replace Icons.check and Icons.copy**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+Icon(_copied ? Icons.check : Icons.copy, ...)
+// After
+PrismIcon(_copied ? PrismIcons.check : PrismIcons.copy, size: 14, color: ...)
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_copy_button.dart && git commit -m "refactor: migrate copy button to PrismIcons"
+```
+
+---
+
+### Task 30: Migrate PrismInfoBanner to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_info_banner.dart`
+
+- [ ] **Replace Material status icons**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace the switch statement:
+```dart
+final (accent, icon) = switch (widget.variant) {
+  PrismToastVariant.success => (PrismColors.lime, PrismIcons.checkCircle),
+  PrismToastVariant.error => (PrismColors.coral, PrismIcons.alertCircle),
+  PrismToastVariant.warning => (PrismColors.amber, PrismIcons.alertTriangle),
+  PrismToastVariant.info => (PrismColors.sky, PrismIcons.info),
+};
+```
+
+Replace Icon usage:
+```dart
+// Before
+Icon(icon, color: accent, size: 18)
+Icon(Icons.close, ...)
+// After
+PrismIcon(icon, size: 18, color: accent)
+PrismIcon(PrismIcons.close, size: 16, color: PrismColors.chalk.withValues(alpha: 0.4))
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_info_banner.dart && git commit -m "refactor: migrate info banner to PrismIcons"
+```
+
+---
+
+### Task 31: Migrate PrismToast to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_toast.dart`
+
+- [ ] **Replace Material status icons**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+final (accent, icon) = switch (variant) {
+  PrismToastVariant.success => (PrismColors.lime, Icons.check),
+  PrismToastVariant.error => (PrismColors.coral, Icons.close),
+  PrismToastVariant.warning => (PrismColors.amber, Icons.warning_amber),
+  PrismToastVariant.info => (PrismColors.sky, Icons.info_outline),
+};
+// After
+final (accent, icon) = switch (variant) {
+  PrismToastVariant.success => (PrismColors.lime, PrismIcons.checkCircle),
+  PrismToastVariant.error => (PrismColors.coral, PrismIcons.alertCircle),
+  PrismToastVariant.warning => (PrismColors.amber, PrismIcons.alertTriangle),
+  PrismToastVariant.info => (PrismColors.sky, PrismIcons.info),
+};
+```
+
+Replace:
+```dart
+// Before
+Icon(widget.icon, color: widget.accent, size: 18)
+// After
+PrismIcon(widget.icon, size: 18, color: widget.accent)
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_toast.dart && git commit -m "refactor: migrate toast to PrismIcons"
+```
+
+---
+
+### Task 32: Migrate PrismRating to PrismIcons
+
+**Files:**
+- Modify: `lib/src/prism_rating.dart`
+
+- [ ] **Replace Icons.star and Icons.star_border**
+
+Add import:
+```dart
+import 'prism_icon.dart';
+import 'prism_icons.dart';
+```
+
+Replace:
+```dart
+// Before
+Icon(filled ? Icons.star : Icons.star_border, ...)
+// After
+PrismIcon(PrismIcons.star, size: size, color: filled ? PrismColors.amber : PrismColors.surface3)
+```
+
+- [ ] **Commit**
+
+```bash
+git add lib/src/prism_rating.dart && git commit -m "refactor: migrate rating to PrismIcons"
+```
+
+---
+
+### Task 33: Verify build
+
+- [ ] **Run Flutter analyze**
+
+```bash
+flutter analyze
+```
+Expected: No errors or warnings.
+
+- [ ] **Run tests**
+
+```bash
+flutter test
+```
+Expected: All existing tests pass.
+
+- [ ] **Commit any remaining changes**
+
+```bash
+git add -A && git commit -m "chore: final cleanup after icon migration"
+```

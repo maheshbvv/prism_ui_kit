@@ -32,6 +32,9 @@ class _ExamplePageState extends State<ExamplePage> {
   String _radio = 'a';
   double _sliderVal = 60;
   int _navIndex = 0;
+  bool _toggleTile = true;
+  bool _singleChoice = false;
+  bool _multiChoice = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +60,18 @@ class _ExamplePageState extends State<ExamplePage> {
         onTap: (i) => setState(() => _navIndex = i),
         items: const [
           PrismNavBarItem(
-            icon: Icons.grid_view_outlined,
-            selectedIcon: Icons.grid_view,
+            icon: PrismIcons.grid,
+            selectedIcon: PrismIcons.grid,
             label: 'Kit',
           ),
           PrismNavBarItem(
-            icon: Icons.palette_outlined,
-            selectedIcon: Icons.palette,
+            icon: PrismIcons.colorWheel,
+            selectedIcon: PrismIcons.colorWheel,
             label: 'Colors',
           ),
           PrismNavBarItem(
-            icon: Icons.text_fields_outlined,
-            selectedIcon: Icons.text_fields,
+            icon: PrismIcons.fileText,
+            selectedIcon: PrismIcons.fileText,
             label: 'Type',
           ),
         ],
@@ -280,6 +283,25 @@ class _ExamplePageState extends State<ExamplePage> {
                   ),
                 ),
                 PrismButton(
+                  label: 'Alert',
+                  variant: PrismVariant.ghost,
+                  onPressed: () => PrismAlertPopup.show(
+                    context,
+                    title: 'Notice',
+                    message: 'Your settings have been updated.',
+                  ),
+                ),
+                PrismButton(
+                  label: 'Confirm',
+                  variant: PrismVariant.ghost,
+                  onPressed: () => PrismConfirmationPopup.show(
+                    context,
+                    title: 'Delete Item',
+                    message: 'This cannot be undone.',
+                    isDestructive: true,
+                  ),
+                ),
+                PrismButton(
                   label: 'Bottom Sheet',
                   variant: PrismVariant.ghost,
                   onPressed: () => PrismBottomSheet.show(
@@ -288,12 +310,12 @@ class _ExamplePageState extends State<ExamplePage> {
                     children: [
                       PrismBottomSheetAction(
                         label: 'Export PDF',
-                        icon: Icons.picture_as_pdf_outlined,
+                        icon: PrismIcons.fileText,
                         onTap: () => Navigator.of(context).pop(),
                       ),
                       PrismBottomSheetAction(
                         label: 'Delete',
-                        icon: Icons.delete_outline,
+                        icon: PrismIcons.trash,
                         isDestructive: true,
                         onTap: () => Navigator.of(context).pop(),
                       ),
@@ -301,6 +323,171 @@ class _ExamplePageState extends State<ExamplePage> {
                   ),
                 ),
               ],
+            ),
+
+            const PrismDivider(label: 'New Components'),
+
+            _sectionLabel('Info Banner'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismInfoBanner(
+              message: 'Your plan renews in 14 days.',
+              variant: PrismToastVariant.warning,
+              actionLabel: 'Renew',
+            ),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismInfoBanner(
+              message: 'Changes saved successfully.',
+              variant: PrismToastVariant.success,
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Search Field'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismSearchField(hint: 'Search components...'),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Tabs'),
+            const SizedBox(height: PrismSpacing.px8),
+            PrismTabs(
+              tabs: ['Explore', 'Library', 'Settings'],
+              selectedIndex: 1,
+              onTap: (_) {},
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Segment Bar'),
+            const SizedBox(height: PrismSpacing.px8),
+            PrismSegmentBar(
+              segments: ['Day', 'Week', 'Month'],
+              selectedIndex: 1,
+              onTap: (_) {},
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Stepper'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismStepper(
+              steps: ['Cart', 'Shipping', 'Payment', 'Confirm'],
+              currentStep: 2,
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Breadcrumbs'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismBreadcrumbs(
+              items: [
+                PrismBreadcrumbItem(label: 'Home'),
+                PrismBreadcrumbItem(label: 'Settings'),
+                PrismBreadcrumbItem(label: 'Profile'),
+              ],
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Selection Tiles'),
+            const SizedBox(height: PrismSpacing.px8),
+            PrismToggleTile(
+              title: 'Dark Mode',
+              subtitle: 'Apply across all screens',
+              value: _toggleTile,
+              onChanged: (v) => setState(() => _toggleTile = v),
+            ),
+            PrismSingleChoiceTile(
+              title: 'Select this option',
+              subtitle: 'Only one can be chosen',
+              selected: _singleChoice,
+              onTap: () => setState(() => _singleChoice = !_singleChoice),
+            ),
+            PrismMultiChoiceTile(
+              title: 'Enable notifications',
+              subtitle: 'Receive push alerts',
+              checked: _multiChoice,
+              onChanged: (v) => setState(() => _multiChoice = v),
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Rating'),
+            const SizedBox(height: PrismSpacing.px8),
+            PrismRating(rating: 3.5, onChanged: (_) {}, maxRating: 5),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Copy Button'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismCopyButton(text: 'api_key_abc123'),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Spinner'),
+            const SizedBox(height: PrismSpacing.px8),
+            const Row(
+              children: [
+                PrismSpinner(color: PrismColors.amber, size: 20),
+                SizedBox(width: 16),
+                PrismSpinner(color: PrismColors.lime, size: 24),
+                SizedBox(width: 16),
+                PrismSpinner(color: PrismColors.sky, size: 28),
+              ],
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Skeleton Loading'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismSkeletonGroup(lines: 3, lineHeight: 14, lastLineWidth: 0.5),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Empty State'),
+            const SizedBox(height: PrismSpacing.px8),
+            SizedBox(
+              height: 200,
+              child: PrismEmptyState(
+                icon: PrismIcons.inbox,
+                title: 'No messages yet',
+                message: 'Your inbox is clean. Start a conversation.',
+                actionLabel: 'Compose',
+                onAction: () {},
+              ),
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Tappable Icon'),
+            const SizedBox(height: PrismSpacing.px8),
+            Row(
+              children: [
+                PrismTappableIcon(icon: PrismIcons.heart, onPressed: () {}),
+                const SizedBox(width: 16),
+                PrismTappableIcon(icon: PrismIcons.bookmark, onPressed: () {}, color: PrismColors.amber),
+                const SizedBox(width: 16),
+                PrismTappableIcon(icon: PrismIcons.share, onPressed: () {}),
+              ],
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('CardBox'),
+            const SizedBox(height: PrismSpacing.px8),
+            const PrismCardBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Simple Box', style: PrismTypography.headingS),
+                  SizedBox(height: 4),
+                  Text('A plain bordered container without an accent line.'),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: PrismSpacing.px20),
+            _sectionLabel('Accordion'),
+            const SizedBox(height: PrismSpacing.px8),
+            PrismAccordion(
+              title: 'Expand to see details',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Hidden content here.',
+                      style: TextStyle(color: PrismColors.chalk.withValues(alpha: 0.6))),
+                  SizedBox(height: 8),
+                  Text('You can put any widget inside.',
+                      style: TextStyle(color: PrismColors.chalk.withValues(alpha: 0.6))),
+                ],
+              ),
             ),
 
             const SizedBox(height: PrismSpacing.px48),

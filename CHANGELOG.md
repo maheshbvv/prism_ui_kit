@@ -1,3 +1,36 @@
+## 0.2.0
+
+- Added **200+ SVG icons** across 18 categories (actions, arrows, brands, commerce, communication, media, status, tech, weather, UI, and more)
+- Added `PrismIcon` — unified icon widget with size, color, and semantic label
+- Added `PrismBrandIcon` — brand icon display with brand colors
+- Added `PrismIcons` — static icon reference class with all icon constants
+- Added `PrismAccordion` — expandable accordion with multiple expansion support
+- Added `PrismBreadcrumbs` — breadcrumb navigation with overflow
+- Added `PrismStepper` — multi-step progress indicator
+- Added `PrismSearchField` — search input with clear button
+- Added `PrismPicker` — bottom-sheet picker with item selection
+- Added `PrismToggleTile`, `PrismSingleChoiceTile`, `PrismMultiChoiceTile` — tile-based selection widgets
+- Added `PrismTappableIcon` — tappable icon with ripple feedback
+- Added `PrismCopyButton` — one-click copy-to-clipboard button
+- Added `PrismRating` — star rating with half-star support
+- Added `PrismOtpInput` — OTP/pin code input field
+- Added `PrismCardBox` — elevated card variant
+- Added `PrismTile`, `PrismVerticalTile` — content tile variants
+- Added `PrismDashedBorder` — dashed border decoration
+- Added `PrismSkeleton` — content loading placeholder
+- Added `PrismAvatarGroup` — stacked avatar display with overflow count
+- Added `PrismAdaptivePageTransition` — platform-aware page transitions
+- Added `PrismSegmentBar` — segmented control
+- Added `PrismTabs` — tab bar with underline indicator
+- Added `PrismNavigationRail` — side navigation rail
+- Added `PrismTooltip` — tooltip with arrow
+- Added `PrismPopup`, `PrismAlertPopup`, `PrismConfirmationPopup` — popup/alert/confirmation modals
+- Added `PrismEmptyState` — empty state placeholder
+- Added `PrismInfoBanner` — contextual info banner
+- Refactored monolithic `prism_ui_kit.dart` into individual `lib/src/*.dart` barrel exports
+- Updated example app to use `PrismIcons` instead of Material icons
+- Renamed `docs/` to `doc/` for pub layout convention
+
 ## 0.1.0
 
 - Added comprehensive dartdoc documentation for all public API elements
