@@ -57,6 +57,5 @@ export 'src/prism_dashed_border.dart';
 export 'src/prism_skeleton.dart';
 export 'src/prism_avatar_group.dart';
 export 'src/prism_icon.dart';
-export 'src/prism_brand_icon.dart';
 export 'src/prism_icons.dart';
 export 'src/prism_accordion.dart';

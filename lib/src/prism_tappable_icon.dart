@@ -14,7 +14,7 @@ class PrismTappableIcon extends StatefulWidget {
     this.tooltip,
   });
 
-  final String icon;
+  final IconData icon;
   final VoidCallback onPressed;
   final double size;
   final Color? color;

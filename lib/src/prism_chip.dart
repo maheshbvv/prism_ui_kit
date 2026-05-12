@@ -17,7 +17,7 @@ class PrismChip extends StatelessWidget {
   final String label;
   final bool selected;
   final VoidCallback onToggle;
-  final String? icon;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,13 @@
+## 0.3.0
+
+- **Removed custom SVG icon set** (dropped flutter_svg dependency, deleted 286 SVG assets)
+- **Replaced PrismIcon** to use Flutter's built-in `Icon` widget (accepts `IconData` instead of `String`)
+- **Replaced PrismIcons** — all 286 constants now map to Flutter Material `Icons.*` (backward-compatible API)
+- **Removed PrismBrandIcon** — unused widget (relied on flutter_svg)
+- **Breaking**: `PrismIcon.icon` type changed from `String` to `IconData`
+- **Breaking**: `PrismIcons.*` constants type changed from `String` to `IconData`
+- **Breaking**: `PrismEmptyState.icon`, `PrismTappableIcon.icon`, `PrismChip.icon`, `PrismNavBarItem.icon`, `PrismNavigationRailDestination.icon`, `PrismBottomSheetAction.icon` types changed from `String` to `IconData`
+
 ## 0.2.0
 
 - Added **200+ SVG icons** across 18 categories (actions, arrows, brands, commerce, communication, media, status, tech, weather, UI, and more)

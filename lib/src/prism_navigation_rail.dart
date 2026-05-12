@@ -12,8 +12,8 @@ class PrismNavigationRailDestination {
     required this.label,
   });
 
-  final String icon;
-  final String selectedIcon;
+  final IconData icon;
+  final IconData selectedIcon;
   final String label;
 }
 

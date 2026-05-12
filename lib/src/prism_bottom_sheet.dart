@@ -87,7 +87,7 @@ class PrismBottomSheetAction extends StatelessWidget {
 
   final String label;
   final VoidCallback onTap;
-  final String? icon;
+  final IconData? icon;
   final bool isDestructive;
 
   @override

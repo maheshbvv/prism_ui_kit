@@ -50,7 +50,7 @@ class _PrismToastWidget extends StatefulWidget {
 
   final String message;
   final Color accent;
-  final String icon;
+  final IconData icon;
   final Duration duration;
   final VoidCallback onDismiss;
 

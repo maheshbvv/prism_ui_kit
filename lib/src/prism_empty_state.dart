@@ -17,7 +17,7 @@ class PrismEmptyState extends StatelessWidget {
     this.onAction,
   });
 
-  final String icon;
+  final IconData icon;
   final String title;
   final String? message;
   final String? actionLabel;
